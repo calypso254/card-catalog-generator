@@ -1,4 +1,4 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
+Sitemap: https://cardcataloggenerator.com/sitemap.xml
 
-Sitemap: https://www.cardcataloggenerator.com/sitemap.xml

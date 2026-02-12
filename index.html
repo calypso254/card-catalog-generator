@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Free printable library catalog card generator. Create vintage or modern book catalog cards, then download PNG files instantly. Unlimited, no charge." />
+    <meta name="description" content="Generate printable library catalog cards for home libraries, scrapbooks, classrooms, and fictional books. Free vintage-style card creator." />
     <meta name="google-adsense-account" content="ca-pub-4860007029459271">
     <meta property="og:title" content="Free Printable Library Catalog Card Generator" />
 <meta property="og:description" content="Create printable library catalog cards and download PNG files instantly. Free, unlimited use." />
 <meta property="og:url" content="https://www.cardcataloggenerator.com/" />
 <meta property="og:type" content="website" />
 
-    <title>Free Printable Library Catalog Card Generator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="canonical" href="https://www.cardcataloggenerator.com/" />
+    <title>Free Library Catalog Card Generator | Printable Vintage Book Cards</title>
+    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
+    <link rel="canonical" href="https://cardcataloggenerator.com/" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -63,20 +64,6 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4860007029459271"
      crossorigin="anonymous"></script>
- <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebApplication",
-  "name":"Card Catalog Generator",
-  "url":"https://www.cardcataloggenerator.com/",
-  "applicationCategory":"UtilitiesApplication",
-  "operatingSystem":"Any",
-  "description":"Free printable library catalog card generator. Create vintage or modern book catalog cards and download PNG files instantly.",
-  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
-}
-</script>
-   
-    
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -86,30 +73,21 @@
             <img src="https://raw.githubusercontent.com/calypso254/card-catalog-generator/main/card%20catalog%20generator%20logo.png" alt="Catalog Card Generator Logo" class="mx-auto w-[200px] max-w-[25%] h-auto">
             
             <h1 class="font-bold text-[#1F1A14] tracking-tight text-[1.5rem] leading-[1.5rem] md:text-4xl md:leading-normal mt-6">Free Library Catalog Card Generator</h1>
-            <p class="text-lg text-[#6B6258] mt-2">Create and download your own printable library catalog cards.</p>
-        </header>
-
-        <!-- About & How it Works Sections -->
-        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-10 px-2 md:px-0">
-            <section id="about" class="text-left">
-                <h2 class="text-xl font-bold text-[#1F1A14] mb-3">About</h2>
-                <p class="text-[#6B6258] leading-relaxed">
-                    Card Catalog Generator is a free printable library catalog card generator for book lovers, librarians, teachers, and archivists.
-                    Create and download classic library catalog cards for any book, zine, personal library, classroom library, or reading journal.
-                    Unlimited use, no charge.
+            <div class="mt-4 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 text-left">
+                <p id="intro" class="text-lg text-[#6B6258]">
+                    Create printable library catalog cards for home libraries, scrapbooking, classroom collections, and fictional books. Enter your details and download a vintage-style catalog card instantly.
                 </p>
-            </section>
-
-            <section id="how-it-works" class="text-left">
-                <h2 class="text-xl font-bold text-[#1F1A14] mb-3">How it works</h2>
-                <ol class="text-[#6B6258] list-decimal list-inside space-y-2 marker:text-[#2F6FED] marker:font-bold">
-                    <li>Enter the call number, author, title, and publication info.</li>
-                    <li>Add a synopsis or notes (optional).</li>
-                    <li>Choose a catalog card style: vintage typewriter, modern serif, or clean sans.</li>
-                    <li>Click Generate Card, then download a printable PNG file.</li>
-                </ol>
-            </section>
-        </div>
+                <section id="how-it-works" class="bg-[#FFFFFF] p-5 rounded-2xl shadow-sm border border-[#E6DED1]">
+                    <h2 class="text-xl font-bold text-[#1F1A14] mb-3">How it works</h2>
+                    <ol class="text-[#6B6258] list-decimal list-inside space-y-2 marker:text-[#2F6FED] marker:font-bold">
+                        <li>Enter the call number, author, title, and publication info.</li>
+                        <li>Add a synopsis or notes (optional).</li>
+                        <li>Choose a catalog card style: vintage typewriter, modern serif, or clean sans.</li>
+                        <li>Click Generate Card, then download a printable PNG file.</li>
+                    </ol>
+                </section>
+            </div>
+</header>
 
         <!-- Main Grid Layout -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -119,7 +97,14 @@
                  <div class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1] lg:h-full lg:flex lg:flex-col">
                     <h2 class="text-2xl font-bold mb-6 border-b border-[#E6DED1] pb-3 text-[#1F1A14]">Card Details</h2>
                     
-                    <div class="space-y-4 lg:flex-grow lg:flex lg:flex-col">
+                    <div id="presets" class="flex flex-wrap gap-2 mb-4">
+                        <button type="button" onclick="applyPreset('novel')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#1F1A14] hover:border-[#2F6FED] hover:text-[#2F6FED] transition">Novel</button>
+                        <button type="button" onclick="applyPreset('nonfiction')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#1F1A14] hover:border-[#2F6FED] hover:text-[#2F6FED] transition">Nonfiction</button>
+                        <button type="button" onclick="applyPreset('textbook')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#1F1A14] hover:border-[#2F6FED] hover:text-[#2F6FED] transition">Textbook</button>
+                        <button type="button" onclick="applyPreset('fiction')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#1F1A14] hover:border-[#2F6FED] hover:text-[#2F6FED] transition">Fictional Book</button>
+                    </div>
+
+                    <div class="space-y-4 lg:flex-grow lg:flex lg:flex-col"> 
                         <div>
                             <label for="entryNumber" class="block font-medium text-[#6B6258] mb-1">Entry/Call Number</label>
                             <input type="text" id="entryNumber" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F6FED] focus:border-transparent transition text-[#1F1A14]" value="813.54 F26c">
@@ -172,7 +157,7 @@
                         </div>
                         <div>
                             <h3 class="font-semibold text-[#6B6258] mb-3">Background Style</h3>
-                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-wrap">
                                 <label class="flex items-center cursor-pointer group">
                                     <input type="radio" name="backgroundStyle" value="transparent" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
                                     <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Transparent</span>
@@ -181,15 +166,40 @@
                                     <input type="radio" name="backgroundStyle" value="white" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]" checked>
                                     <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Clean White</span>
                                 </label>
-                                 <label class="flex items-center cursor-pointer group">
+                                <label class="flex items-center cursor-pointer group">
                                     <input type="radio" name="backgroundStyle" value="vintage" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
                                     <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Aged Paper</span>
                                 </label>
+                                <label class="flex items-center cursor-pointer group">
+                                    <input type="radio" name="backgroundStyle" value="textured" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
+                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Textured Aged Paper</span>
+                                </label>
                             </div>
                         </div>
-                         <div>
+                        <div>
+                            <h3 class="font-semibold text-[#6B6258] mb-2">Card Size</h3>
+                            <p class="text-sm text-[#6B6258] mb-3">Standard (US & Europe): 5 x 3 in (12.5 x 7.5 cm).</p>
+                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-wrap">
+                                <label class="flex items-center cursor-pointer group">
+                                    <input type="radio" name="cardSize" value="5x3" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]" checked>
+                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">5 x 3 in (12.5 x 7.5 cm)</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer group">
+                                    <input type="radio" name="cardSize" value="6x4" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
+                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">6 x 4 in (15.2 x 10.2 cm)</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer group">
+                                    <input type="radio" name="cardSize" value="8x5" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
+                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">8 x 5 in (20.3 x 12.7 cm)</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer group">
+                                    <input type="radio" name="cardSize" value="a7" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
+                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">A7 ISO (4.13 x 2.91 in / 10.5 x 7.4 cm)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
                             <h3 class="font-semibold text-[#6B6258] mb-3">Options</h3>
-                            <!-- Toggle Switch -->
                             <label class="inline-flex items-center cursor-pointer">
                                 <input type="checkbox" id="showHole" class="sr-only peer" checked>
                                 <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2F6FED]"></div>
@@ -198,7 +208,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <button id="generateBtn" class="w-full bg-[#2F6FED] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#255BD6] focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg">
                     Generate Card
                 </button>
@@ -213,7 +222,50 @@
                     </svg>
                     Download PNG
                 </button>
-            </div>
+
+                <button id="downloadPdfBtn" class="w-full bg-[#8A5A2B] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#6E4621] focus:outline-none focus:ring-4 focus:ring-amber-200 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-8m0 8l-3-3m3 3l3-3M6 20h12" />
+                    </svg>
+                    Download PDF
+                </button>
+
+            
+                <section id="uses" class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1]">
+  <h2>Common Uses</h2>
+  <ul class="list-disc list-inside text-[#6B6258] space-y-1">
+    <li>Scrapbooking and junk journals</li>
+    <li>Home library catalog cards</li>
+    <li>Classroom library systems</li>
+    <li>Reading trackers and book logs</li>
+    <li>Fictional book and prop cards</li>
+  </ul>
+  <p class="text-[#6B6258] mt-4"><strong>Tip:</strong> Bookmark this page to create a new card each time you add a book.</p>
+</section>
+
+<section id="faq" class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1]">
+  <h2>FAQ</h2>
+
+  <details>
+    <summary>What is a library catalog card?</summary>
+    <p>A catalog card is a structured record of a book’s title, author, and classification used in traditional library card catalogs.</p>
+  </details>
+
+  <details>
+    <summary>Can I create cards for fictional books?</summary>
+    <p>Yes. You can enter any title and author to generate prop or creative project cards.</p>
+  </details>
+
+  <details>
+    <summary>What paper size should I print on?</summary>
+    <p>Standard letter or A4 works, and if your printer supports direct card stock/card sizes, you can print directly on the card. Downloads keep true dimensions, so the PNG or PDF matches the exact size you selected above.</p>
+  </details>
+
+  <details>
+    <summary>Do you store my entries?</summary>
+    <p>No. Data is generated in your browser and not saved on a server.</p>
+  </details>
+</section></div>
 
         </div>
 
@@ -232,9 +284,18 @@
             <p class="text-[#6B6258] text-xs mt-2 opacity-70">Support us by disabling ad blockers</p>
         </div>
 
+
+        <section id="about" class="max-w-5xl mx-auto mt-10 px-2 md:px-0">
+            <h2>About This Tool</h2>
+            <p class="text-[#6B6258] leading-relaxed mb-6">
+                Card Catalog Generator is a free printable library catalog card generator for book lovers, librarians, teachers, and archivists.
+                Create and download classic library catalog cards for any book, zine, personal library, classroom library, or reading journal.
+                Unlimited use, no charge.
+            </p>
+        </section>
         <footer class="text-center mt-12 mb-8 text-[#6B6258]">
             <!-- Bottom Logo -->
-            <img src="https://raw.githubusercontent.com/calypso254/card-catalog-generator/main/cardcataloggenerator1-2.png" alt="Card Catalog Generator Logo" class="mx-auto max-w-[300px] h-auto mb-4 opacity-80 hover:opacity-100 transition-opacity">
+            <img src="https://raw.githubusercontent.com/calypso254/card-catalog-generator/main/cardcataloggenerator1-2.png" alt="Card Catalog Generator Logo" loading="lazy" class="mx-auto max-w-[300px] h-auto mb-4 opacity-80 hover:opacity-100 transition-opacity">
             
             <p>A simple tool for book lovers and archivists.</p>
             <p class="text-sm mt-2">&copy; <span id="copyrightYear"></span>, Calypso Pixels.</p>
@@ -242,11 +303,24 @@
     </div>
 
     <script>
+        function applyPreset(type){
+            if(type==='novel'){
+                document.querySelector('#entryNumber').value = 'FIC';
+            }
+            if(type==='nonfiction'){
+                document.querySelector('#entryNumber').value = '001';
+            }
+            if(type==='textbook'){
+                document.querySelector('#entryNumber').value = 'TEXT';
+            }
+            if(type==='fiction'){
+                document.querySelector('#author').value = 'Unknown';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            // Set dynamic copyright year
             document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
-            // DOM Elements
             const canvas = document.getElementById('cardCanvas');
             const ctx = canvas.getContext('2d');
 
@@ -259,30 +333,57 @@
             const showHoleCheckbox = document.getElementById('showHole');
             const generateBtn = document.getElementById('generateBtn');
             const downloadBtn = document.getElementById('downloadBtn');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
 
-            // --- Canvas Settings ---
-            // High-resolution for printing (12.5cm x 7.5cm at ~300 DPI)
-            const canvasWidth = 1476;
-            const canvasHeight = 886;
-            canvas.width = canvasWidth;
-            canvas.height = canvasHeight;
-            
-            // Margins and positions
-            const leftMargin = 120;
-            const rightMargin = canvasWidth - 80;
-            const topMargin = 100;
-            const contentStartX = 150;
-            
-            // --- Helper function for text wrapping ---
+            const BASE_WIDTH = 1476;
+            const BASE_HEIGHT = 886;
+            const DPI = 300;
+
+            const CARD_SIZES = {
+                '5x3': { wIn: 5, hIn: 3 },
+                '6x4': { wIn: 6, hIn: 4 },
+                '8x5': { wIn: 8, hIn: 5 },
+                'a7': { wIn: 4.1339, hIn: 2.9134 }
+            };
+
+            let activeSize = CARD_SIZES['5x3'];
+
+            function getSelectedSize() {
+                const selected = document.querySelector('input[name="cardSize"]:checked');
+                return CARD_SIZES[selected ? selected.value : '5x3'];
+            }
+
+            function setCanvasSizeFromSelection() {
+                activeSize = getSelectedSize();
+                canvas.width = Math.round(activeSize.wIn * DPI);
+                canvas.height = Math.round(activeSize.hIn * DPI);
+            }
+
+            function sanitizeFilePart(value, fallback) {
+                const clean = (value || '')
+                    .replace(/[<>:"/\\|?*]+/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                return clean || fallback;
+            }
+
+            function buildDownloadBaseName() {
+                const author = sanitizeFilePart(authorInput.value, 'Unknown Author');
+                const titleRaw = sanitizeFilePart(titleInput.value, 'Untitled');
+                const titlePart = titleRaw.substring(0, 20).trim() || 'Untitled';
+                return `Card Catalog Generator - ${author} - ${titlePart}`;
+            }
+
             function wrapText(context, text, x, y, maxWidth, lineHeight) {
                 const words = text.split(' ');
                 let line = '';
-                let testLine, metrics;
+                let testLine;
+                let metrics;
 
                 for (let n = 0; n < words.length; n++) {
                     testLine = line + words[n] + ' ';
                     metrics = context.measureText(testLine);
-                    
+
                     if (metrics.width > maxWidth && n > 0) {
                         context.fillText(line, x, y);
                         line = words[n] + ' ';
@@ -292,125 +393,249 @@
                     }
                 }
                 context.fillText(line, x, y);
-                return y; // Return the Y position of the last line drawn
+                return y;
             }
 
+            function drawTexturedAgedPaper(context, width, height) {
+                context.fillStyle = '#f2e6cc';
+                context.fillRect(0, 0, width, height);
 
-            // --- Main Drawing Function ---
+                const grad = context.createLinearGradient(0, 0, width, height);
+                grad.addColorStop(0, 'rgba(120, 90, 50, 0.06)');
+                grad.addColorStop(1, 'rgba(70, 50, 30, 0.08)');
+                context.fillStyle = grad;
+                context.fillRect(0, 0, width, height);
+
+                const flecks = Math.floor((width * height) / 160);
+                for (let i = 0; i < flecks; i++) {
+                    const alpha = Math.random() * 0.08;
+                    const shade = 120 + Math.floor(Math.random() * 50);
+                    context.fillStyle = `rgba(${shade}, ${shade - 10}, ${shade - 25}, ${alpha})`;
+                    const x = Math.random() * width;
+                    const y = Math.random() * height;
+                    const s = 1 + Math.random() * 2;
+                    context.fillRect(x, y, s, s);
+                }
+
+                const fibers = Math.floor((width * height) / 1800);
+                context.strokeStyle = 'rgba(110, 80, 50, 0.12)';
+                context.lineWidth = 1;
+                for (let i = 0; i < fibers; i++) {
+                    const x = Math.random() * width;
+                    const y = Math.random() * height;
+                    const len = 8 + Math.random() * 22;
+                    const angle = Math.random() * Math.PI;
+                    context.beginPath();
+                    context.moveTo(x, y);
+                    context.lineTo(x + Math.cos(angle) * len, y + Math.sin(angle) * len);
+                    context.stroke();
+                }
+}
+
             function generateCard() {
                 const fontStyle = document.querySelector('input[name="fontStyle"]:checked').value;
                 const backgroundStyle = document.querySelector('input[name="backgroundStyle"]:checked').value;
                 const showHole = showHoleCheckbox.checked;
 
-                // 1. Get all input values
+                setCanvasSizeFromSelection();
+
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+
+                const sx = canvasWidth / BASE_WIDTH;
+                const sy = canvasHeight / BASE_HEIGHT;
+                const scale = Math.min(sx, sy);
+
+                const leftMargin = 120 * sx;
+                const rightMargin = canvasWidth - (80 * sx);
+                const topMargin = 100 * sy;
+                const contentStartX = 150 * sx;
+
                 const entryNumber = entryNumberInput.value;
                 const author = authorInput.value;
                 const title = titleInput.value;
                 const publication = publicationInput.value;
                 const description = descriptionInput.value;
                 const synopsis = synopsisInput.value;
-                
-                // 2. Clear canvas and set background
+
                 ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
                 if (backgroundStyle === 'vintage') {
-                    ctx.fillStyle = '#fdf5e6'; // Original aged paper color
+                    ctx.fillStyle = '#fdf5e6';
                     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-                    // Add subtle texture for vintage feel
-                    for(let i=0; i<10000; i++) {
-                        ctx.fillStyle = `rgba(0,0,0,${Math.random() * 0.01})`;
-                        ctx.fillRect(Math.random() * canvasWidth, Math.random() * canvasHeight, 1, 1);
-                    }
+                } else if (backgroundStyle === 'textured') {
+                    drawTexturedAgedPaper(ctx, canvasWidth, canvasHeight);
                 } else if (backgroundStyle === 'white') {
-                    ctx.fillStyle = '#f8f9fa'; // Original off-white
+                    ctx.fillStyle = '#f8f9fa';
                     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
                 }
-                // For 'transparent', we do nothing and leave it clear.
 
-                // 3. Set font style
                 if (fontStyle === 'vintage') {
-                    ctx.font = '40px "Cutive Mono", monospace';
+                    ctx.font = `${Math.round(40 * scale)}px "Cutive Mono", monospace`;
                     ctx.fillStyle = '#333';
                 } else if (fontStyle === 'sans') {
-                    ctx.font = '40px "Inter", sans-serif'; // New Sans Serif
+                    ctx.font = `${Math.round(40 * scale)}px "Inter", sans-serif`;
                     ctx.fillStyle = '#212529';
-                } else { // Modern style
-                    ctx.font = '42px "EB Garamond", serif';
+                } else {
+                    ctx.font = `${Math.round(42 * scale)}px "EB Garamond", serif`;
                     ctx.fillStyle = '#212529';
                 }
-                
-                // --- Draw card content ---
+
                 let currentY = topMargin;
 
-                // Entry Number
                 ctx.fillText(entryNumber, leftMargin, currentY);
-                currentY += 80;
+                currentY += 80 * sy;
 
-                // Author
                 ctx.fillText(author, contentStartX, currentY);
-                currentY += 55;
+                currentY += 55 * sy;
 
-                // Title, Publication, Description (indented)
-                const bodyTextIndent = contentStartX + 40;
+                const bodyTextIndent = contentStartX + (40 * sx);
                 const maxWidth = rightMargin - bodyTextIndent;
-                const lineHeight = 55;
+                const lineHeight = 55 * sy;
 
-                // Title with author line - now with wrapping
                 const titleAndAuthor = `${title} / ${author.split(',')[1] || ''} ${author.split(',')[0] || ''}.`;
-                let lastY = wrapText(ctx, titleAndAuthor, bodyTextIndent, currentY, maxWidth, lineHeight);
+                const lastY = wrapText(ctx, titleAndAuthor, bodyTextIndent, currentY, maxWidth, lineHeight);
                 currentY = lastY + lineHeight;
 
-                // Publication and Description lines
                 ctx.fillText(publication, bodyTextIndent, currentY);
                 currentY += lineHeight;
                 ctx.fillText(description, bodyTextIndent, currentY);
                 currentY += lineHeight;
-                
-                currentY += 25; // Space before synopsis
 
-                // Synopsis
+                currentY += 25 * sy;
                 wrapText(ctx, synopsis, bodyTextIndent, currentY, maxWidth, lineHeight);
 
-                // Draw the circular hole (a common feature on catalog cards)
                 if (showHole) {
                     ctx.beginPath();
-                    ctx.arc(canvasWidth / 2, canvasHeight - 60, 25, 0, 2 * Math.PI, false);
-                    if(fontStyle === 'vintage') { // Style hole based on font for consistency
+                    ctx.arc(canvasWidth / 2, canvasHeight - (60 * sy), 25 * scale, 0, 2 * Math.PI, false);
+                    if (fontStyle === 'vintage') {
                         ctx.fillStyle = backgroundStyle === 'white' ? '#e9ecef' : '#d3c5b4';
-                        if (backgroundStyle === 'transparent') ctx.fillStyle = '#d3c5b4';
+                        if (backgroundStyle === 'transparent') {
+                            ctx.fillStyle = '#d3c5b4';
+                        }
                         ctx.fill();
-                        ctx.lineWidth = 2;
+                        ctx.lineWidth = 2 * scale;
                         ctx.strokeStyle = '#5c5248';
                     } else {
                         ctx.fillStyle = '#e9ecef';
                         ctx.fill();
-                        ctx.lineWidth = 2;
+                        ctx.lineWidth = 2 * scale;
                         ctx.strokeStyle = '#adb5bd';
                     }
                     ctx.stroke();
                 }
             }
 
-            // --- Event Listeners ---
             generateBtn.addEventListener('click', generateCard);
             showHoleCheckbox.addEventListener('change', generateCard);
 
-            // Add listeners to radio buttons to auto-regenerate on style change
-            document.querySelectorAll('input[name="fontStyle"], input[name="backgroundStyle"]').forEach(radio => {
+            document.querySelectorAll('input[name="fontStyle"], input[name="backgroundStyle"], input[name="cardSize"]').forEach(radio => {
                 radio.addEventListener('change', generateCard);
             });
 
             downloadBtn.addEventListener('click', () => {
                 const link = document.createElement('a');
-                link.download = 'catalog-card.png';
+                link.download = buildDownloadBaseName() + '.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             });
 
-            // --- Initial Generation ---
-            // A brief timeout ensures the custom fonts are loaded before the first draw.
+            downloadPdfBtn.addEventListener('click', () => {
+                const jspdf = window.jspdf;
+                if (!jspdf || !jspdf.jsPDF) {
+                    alert('PDF library is still loading. Please try again.');
+                    return;
+                }
+
+                const pdf = new jspdf.jsPDF({
+                    orientation: 'landscape',
+                    unit: 'in',
+                    format: [activeSize.wIn, activeSize.hIn]
+                });
+
+                pdf.setProperties({
+                    title: buildDownloadBaseName(),
+                    subject: 'Created by CardCatalogGenerator.com',
+                    creator: 'CardCatalogGenerator.com',
+                    author: sanitizeFilePart(authorInput.value, 'Card Catalog Generator')
+                });
+
+                const imageData = canvas.toDataURL('image/png');
+                pdf.addImage(imageData, 'PNG', 0, 0, activeSize.wIn, activeSize.hIn);
+                pdf.save(buildDownloadBaseName() + '.pdf');
+            });
+
             setTimeout(generateCard, 500);
         });
     </script>
+    <script type="application/ld+json">
+    {
+     "@context": "https://schema.org",
+     "@type": "WebApplication",
+     "name": "Library Catalog Card Generator",
+     "url": "https://cardcataloggenerator.com/",
+     "applicationCategory": "UtilityApplication",
+     "operatingSystem": "Web",
+     "offers": { "@type": "Offer", "price": "0" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a library catalog card?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A catalog card is a structured record of a book’s title, author, and classification used in traditional library card catalogs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I create cards for fictional books?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can enter any title and author to generate prop or creative project cards."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What paper size should I print on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Standard letter or A4 works, and if your printer supports direct card stock/card sizes, you can print directly on the card. Downloads keep true dimensions, so the PNG or PDF matches the exact size you selected above."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you store my entries?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Data is generated in your browser and not saved on a server."
+          }
+        }
+      ]
+    }
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
