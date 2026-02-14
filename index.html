@@ -14,43 +14,8 @@
     <script src="https://cdn.tailwindcss.com" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
     <link rel="canonical" href="https://cardcataloggenerator.com/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=EB+Garamond:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F6F1E7;
-            color: #1F1A14;
-        }
-        .font-cutive-mono {
-            font-family: 'Cutive Mono', monospace;
-        }
-        .font-eb-garamond {
-            font-family: 'EB Garamond', serif;
-        }
-        /* Custom scrollbar for better aesthetics */
-        textarea::-webkit-scrollbar {
-            width: 8px;
-        }
-        textarea::-webkit-scrollbar-track {
-            background: #FBF7EF;
-            border-radius: 4px;
-        }
-        textarea::-webkit-scrollbar-thumb {
-            background: #E6DED1;
-            border-radius: 4px;
-        }
-        textarea::-webkit-scrollbar-thumb:hover {
-            background: #6B6258;
-        }
-        
-        /* Custom Radio Styling Helper */
-        input[type="radio"]:checked {
-            background-color: #2F6FED;
-            border-color: #2F6FED;
-        }
-    </style>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="styles.css" />
     
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-45K7J1FFQ4"></script>
@@ -70,16 +35,19 @@
     <div class="container mx-auto p-4 md:p-8 flex-grow">
         <header class="text-center mb-8">
             <!-- Top Logo -->
-            <img src="https://raw.githubusercontent.com/calypso254/card-catalog-generator/main/card%20catalog%20generator%20logo.png" alt="Catalog Card Generator Logo" width="200" style="width:min(200px,25vw);height:auto;" class="mx-auto w-[200px] max-w-[25%] h-auto">
+            <img src="card_catalog_generator_logo.svg" alt="Card Catalog Generator Logo" width="200" style="width:min(200px,25vw);height:auto;" class="mx-auto w-[200px] max-w-[25%] h-auto">
             
-            <h1 class="font-bold text-[#1F1A14] tracking-tight text-[1.5rem] leading-[1.5rem] md:text-4xl md:leading-normal mt-6">Free Library Catalog Card Generator</h1>
+            <h1 class="font-bold text-[#006D77] tracking-tight text-[1.5rem] leading-[1.5rem] md:text-4xl md:leading-normal mt-6">Free Library Catalog Card Generator</h1>
             <div class="mt-4 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 text-left">
-                <p id="intro" class="text-lg text-[#6B6258]">
-                    Create printable library catalog cards for home libraries, scrapbooking, classroom collections, and fictional books. Enter your details and download a vintage-style catalog card instantly.
-                </p>
-                <section id="how-it-works" class="p-5 rounded-2xl">
-                    <h2 class="text-xl font-bold text-[#1F1A14] mb-3">How it works</h2>
-                    <ol class="text-[#6B6258] list-decimal list-inside space-y-2 marker:text-[#2F6FED] marker:font-bold">
+                <section id="intro" class="bg-[#FFFFFF] p-5 rounded-2xl shadow-sm border border-[#E6DED1]">
+                    <h2 class="text-xl font-bold text-[#2D3436] mb-3">What You Can Do</h2>
+                    <p class="text-lg text-[#2D3436] leading-relaxed">
+                        Create printable library catalog cards for home libraries, scrapbooking, classroom collections, and fictional books. Enter your details and download a vintage-style catalog card instantly.
+                    </p>
+                </section>
+                <section id="how-it-works" class="bg-[#FFFFFF] p-5 rounded-2xl shadow-sm border border-[#E6DED1]">
+                    <h2 class="text-xl font-bold text-[#2D3436] mb-3">How it works</h2>
+                    <ol class="text-[#2D3436] list-decimal list-inside space-y-2 marker:text-[#006D77] marker:font-bold">
                         <li>Enter the call number, author, title, and publication info.</li>
                         <li>Add a synopsis or notes (optional).</li>
                         <li>Choose a catalog card style: vintage typewriter, modern serif, or clean sans.</li>
@@ -95,39 +63,39 @@
             <!-- LEFT COLUMN: Card Details -->
             <div class="lg:col-start-1 lg:h-full">
                  <div class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1] lg:h-full lg:flex lg:flex-col">
-                    <h2 class="text-2xl font-bold mb-6 border-b border-[#E6DED1] pb-3 text-[#1F1A14]">Card Details</h2>
+                    <h2 class="text-2xl font-bold mb-6 border-b border-[#E6DED1] pb-3 text-[#2D3436]">Card Details</h2>
                     
                     <div id="presets" class="flex flex-wrap gap-2 mb-4">
-                        <button type="button" onclick="applyPreset('novel')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#1F1A14] hover:border-[#2F6FED] hover:text-[#2F6FED] transition">Novel</button>
-                        <button type="button" onclick="applyPreset('nonfiction')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#1F1A14] hover:border-[#2F6FED] hover:text-[#2F6FED] transition">Nonfiction</button>
-                        <button type="button" onclick="applyPreset('textbook')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#1F1A14] hover:border-[#2F6FED] hover:text-[#2F6FED] transition">Textbook</button>
-                        <button type="button" onclick="applyPreset('fiction')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#1F1A14] hover:border-[#2F6FED] hover:text-[#2F6FED] transition">Fictional Book</button>
+                        <button type="button" onclick="applyPreset('novel')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition">Novel</button>
+                        <button type="button" onclick="applyPreset('nonfiction')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition">Nonfiction</button>
+                        <button type="button" onclick="applyPreset('textbook')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition">Textbook</button>
+                        <button type="button" onclick="applyPreset('fiction')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition">Fictional Book</button>
                     </div>
 
                     <div class="space-y-4 lg:flex-grow lg:flex lg:flex-col"> 
                         <div>
-                            <label for="entryNumber" class="block font-medium text-[#6B6258] mb-1">Entry/Call Number</label>
-                            <input type="text" id="entryNumber" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F6FED] focus:border-transparent transition text-[#1F1A14]" value="813.54 F26c">
+                            <label for="entryNumber" class="block font-medium text-[#2D3436] mb-1">Entry/Call Number</label>
+                            <input type="text" id="entryNumber" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="813.54 F26c">
                         </div>
                         <div>
-                            <label for="author" class="block font-medium text-[#6B6258] mb-1">Author (Last, First)</label>
-                            <input type="text" id="author" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F6FED] focus:border-transparent transition text-[#1F1A14]" value="Faulkner, William">
+                            <label for="author" class="block font-medium text-[#2D3436] mb-1">Author (Last, First)</label>
+                            <input type="text" id="author" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="Faulkner, William">
                         </div>
                         <div>
-                            <label for="title" class="block font-medium text-[#6B6258] mb-1">Title</label>
-                            <input type="text" id="title" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F6FED] focus:border-transparent transition text-[#1F1A14]" value="The Sound and the Fury: A Novel of Twentieth-Century Southern Decline and Moral Decay">
+                            <label for="title" class="block font-medium text-[#2D3436] mb-1">Title</label>
+                            <input type="text" id="title" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="The Sound and the Fury: A Novel of Twentieth-Century Southern Decline and Moral Decay">
                         </div>
                         <div>
-                            <label for="publication" class="block font-medium text-[#6B6258] mb-1">Publication Info (Publisher, City, Year)</label>
-                            <input type="text" id="publication" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F6FED] focus:border-transparent transition text-[#1F1A14]" value="J. Cape & H. Smith, New York, 1929">
+                            <label for="publication" class="block font-medium text-[#2D3436] mb-1">Publication Info (Publisher, City, Year)</label>
+                            <input type="text" id="publication" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="J. Cape & H. Smith, New York, 1929">
                         </div>
                           <div>
-                            <label for="description" class="block font-medium text-[#6B6258] mb-1">Physical Description (pages, size)</label>
-                            <input type="text" id="description" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F6FED] focus:border-transparent transition text-[#1F1A14]" value="326 p. ; 20 cm.">
+                            <label for="description" class="block font-medium text-[#2D3436] mb-1">Physical Description (pages, size)</label>
+                            <input type="text" id="description" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="326 p. ; 20 cm.">
                         </div>
                         <div class="lg:flex-grow lg:flex lg:flex-col">
-                            <label for="synopsis" class="block font-medium text-[#6B6258] mb-1">Synopsis / Notes</label>
-                            <textarea id="synopsis" rows="5" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F6FED] focus:border-transparent transition text-[#1F1A14] lg:flex-grow resize-none">A novel detailing the decline and fall of the Compson family in Jefferson, Mississippi. Told from multiple perspectives, it explores themes of memory, time, and the decay of the Southern aristocracy.</textarea>
+                            <label for="synopsis" class="block font-medium text-[#2D3436] mb-1">Synopsis / Notes</label>
+                            <textarea id="synopsis" rows="5" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436] lg:flex-grow resize-none">A novel detailing the decline and fall of the Compson family in Jefferson, Mississippi. Told from multiple perspectives, it explores themes of memory, time, and the decay of the Southern aristocracy.</textarea>
                         </div>
                     </div>
                 </div>
@@ -136,94 +104,94 @@
             <!-- RIGHT COLUMN: Style, Generate, Preview, Download -->
             <div class="lg:col-start-2 flex flex-col gap-6">
                  <div class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1]">
-                    <h2 class="text-2xl font-bold mb-6 border-b border-[#E6DED1] pb-3 text-[#1F1A14]">Card Style</h2>
+                    <h2 class="text-2xl font-bold mb-6 border-b border-[#E6DED1] pb-3 text-[#2D3436]">Card Style</h2>
                     <div class="space-y-6">
                         <div>
-                            <h3 class="font-semibold text-[#6B6258] mb-3">Font Style</h3>
+                            <h3 class="font-semibold text-[#2D3436] mb-3">Font Style</h3>
                             <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-wrap">
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="fontStyle" value="modern" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]" checked>
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Modern Serif</span>
+                                    <input type="radio" name="fontStyle" value="modern" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]" checked>
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Modern Serif</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="fontStyle" value="sans" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Clean Sans</span>
+                                    <input type="radio" name="fontStyle" value="sans" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Clean Sans</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="fontStyle" value="vintage" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Vintage Typewriter</span>
+                                    <input type="radio" name="fontStyle" value="vintage" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Vintage Typewriter</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-[#6B6258] mb-3">Background Style</h3>
+                            <h3 class="font-semibold text-[#2D3436] mb-3">Background Style</h3>
                             <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-wrap">
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="backgroundStyle" value="transparent" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Transparent</span>
+                                    <input type="radio" name="backgroundStyle" value="transparent" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Transparent</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="backgroundStyle" value="white" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]" checked>
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Clean White</span>
+                                    <input type="radio" name="backgroundStyle" value="white" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]" checked>
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Clean White</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="backgroundStyle" value="vintage" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Aged Paper</span>
+                                    <input type="radio" name="backgroundStyle" value="vintage" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Aged Paper</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="backgroundStyle" value="textured" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">Textured Aged Paper</span>
+                                    <input type="radio" name="backgroundStyle" value="textured" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Textured Aged Paper</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-[#6B6258] mb-2">Card Size</h3>
-                            <p class="text-sm text-[#6B6258] mb-3">Standard (US & Europe): 5 x 3 in (12.5 x 7.5 cm).</p>
+                            <h3 class="font-semibold text-[#2D3436] mb-2">Card Size</h3>
+                            <p class="text-sm text-[#2D3436] mb-3">Standard (US & Europe): 5 x 3 in (12.5 x 7.5 cm).</p>
                             <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-wrap">
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="cardSize" value="5x3" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]" checked>
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">5 x 3 in (12.5 x 7.5 cm)</span>
+                                    <input type="radio" name="cardSize" value="5x3" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]" checked>
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">5 x 3 in (12.5 x 7.5 cm)</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="cardSize" value="6x4" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">6 x 4 in (15.2 x 10.2 cm)</span>
+                                    <input type="radio" name="cardSize" value="6x4" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">6 x 4 in (15.2 x 10.2 cm)</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="cardSize" value="8x5" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">8 x 5 in (20.3 x 12.7 cm)</span>
+                                    <input type="radio" name="cardSize" value="8x5" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">8 x 5 in (20.3 x 12.7 cm)</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="cardSize" value="a7" class="w-5 h-5 text-[#2F6FED] border-gray-300 focus:ring-[#2F6FED]">
-                                    <span class="ml-2 text-[#1F1A14] group-hover:text-[#2F6FED] transition">A7 ISO (4.13 x 2.91 in / 10.5 x 7.4 cm)</span>
+                                    <input type="radio" name="cardSize" value="a7" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
+                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">A7 ISO (4.13 x 2.91 in / 10.5 x 7.4 cm)</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-[#6B6258] mb-3">Options</h3>
+                            <h3 class="font-semibold text-[#2D3436] mb-3">Options</h3>
                             <label class="inline-flex items-center cursor-pointer">
                                 <input type="checkbox" id="showHole" class="sr-only peer" checked>
-                                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2F6FED]"></div>
-                                <span class="ms-3 text-[#1F1A14] font-medium">Show Hole Punch</span>
+                                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#83C5BE] rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#006D77]"></div>
+                                <span class="ms-3 text-[#2D3436] font-medium">Show Hole Punch</span>
                             </label>
                         </div>
                     </div>
                 </div>
-                <button id="generateBtn" class="w-full bg-[#2F6FED] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#255BD6] focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg">
+                <button id="generateBtn" class="w-full bg-[#006D77] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#005A63] focus:outline-none focus:ring-4 focus:ring-[#83C5BE] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg">
                     Generate Card
                 </button>
 
                  <div class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1] flex items-center justify-center min-h-[300px]">
-                    <canvas id="cardCanvas" class="w-full h-auto rounded-lg shadow-sm"></canvas>
+                    <canvas id="cardCanvas" class="w-full h-auto rounded-lg canvas-spotlight"></canvas>
                 </div>
 
-                <button id="downloadBtn" class="w-full bg-[#1E8E5A] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#167247] focus:outline-none focus:ring-4 focus:ring-green-200 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg flex items-center justify-center gap-2">
+                <button id="downloadBtn" class="w-full bg-[#006D77] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#005A63] focus:outline-none focus:ring-4 focus:ring-[#83C5BE] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                     Download PNG
                 </button>
 
-                <button id="downloadPdfBtn" class="w-full bg-[#8A5A2B] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#6E4621] focus:outline-none focus:ring-4 focus:ring-amber-200 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg flex items-center justify-center gap-2">
+                <button id="downloadPdfBtn" class="w-full bg-[#FF6F61] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#E65E53] focus:outline-none focus:ring-4 focus:ring-[#FFC1B9] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-8m0 8l-3-3m3 3l3-3M6 20h12" />
                     </svg>
@@ -233,14 +201,14 @@
             
                 <section id="uses" class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1]">
   <h2>Common Uses</h2>
-  <ul class="list-disc list-inside text-[#6B6258] space-y-1">
+  <ul class="list-disc list-inside text-[#2D3436] space-y-1">
     <li>Scrapbooking and junk journals</li>
     <li>Home library catalog cards</li>
     <li>Classroom library systems</li>
     <li>Reading trackers and book logs</li>
     <li>Fictional book and prop cards</li>
   </ul>
-  <p class="text-[#6B6258] mt-4"><strong>Tip:</strong> Bookmark this page to create a new card each time you add a book.</p>
+  <p class="text-[#2D3436] mt-4"><strong>Tip:</strong> Bookmark this page to create a new card each time you add a book.</p>
 </section>
 
 <section id="faq" class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1]">
@@ -281,24 +249,26 @@
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
-            <p class="text-[#6B6258] text-xs mt-2 opacity-70">Support us by disabling ad blockers</p>
+            <p class="text-[#2D3436] text-xs mt-2 opacity-70">Support us by disabling ad blockers</p>
         </div>
 
 
         <section id="about" class="max-w-5xl mx-auto mt-10 px-2 md:px-0">
             <h2>About This Tool</h2>
-            <p class="text-[#6B6258] leading-relaxed mb-6">
+            <p class="text-[#2D3436] leading-relaxed mb-6">
                 Card Catalog Generator is a free printable library catalog card generator for book lovers, librarians, teachers, and archivists.
                 Create and download classic library catalog cards for any book, zine, personal library, classroom library, or reading journal.
                 Unlimited use, no charge.
             </p>
         </section>
-        <footer class="text-center mt-12 mb-8 text-[#6B6258]">
-            <!-- Bottom Logo -->
-            <img src="https://raw.githubusercontent.com/calypso254/card-catalog-generator/main/cardcataloggenerator1-2.png" alt="Card Catalog Generator Logo" loading="lazy" class="mx-auto max-w-[300px] h-auto mb-4 opacity-80 hover:opacity-100 transition-opacity">
-            
+        <footer class="text-center mt-12 mb-8 text-[#2D3436]">
+            <div class="site-footer-brand mb-4">
+                <img src="card_catalog_generator_logo.svg" alt="Card Catalog Generator Logo" loading="lazy">
+                <span>CardCatalogGenerator.com</span>
+            </div>
             <p>A simple tool for book lovers and archivists.</p>
             <p class="text-sm mt-2">&copy; <span id="copyrightYear"></span>, Calypso Pixels.</p>
+            <p class="text-sm mt-2"><a class="text-[#006D77] hover:underline" href="/privacy.html">Privacy Policy</a></p>
         </footer>
     </div>
 
@@ -474,7 +444,7 @@
                     ctx.font = `${Math.round(40 * scale)}px "Cutive Mono", monospace`;
                     ctx.fillStyle = '#333';
                 } else if (fontStyle === 'sans') {
-                    ctx.font = `${Math.round(40 * scale)}px "Inter", sans-serif`;
+                    ctx.font = `${Math.round(40 * scale)}px "Roboto Condensed", sans-serif`;
                     ctx.fillStyle = '#212529';
                 } else {
                     ctx.font = `${Math.round(42 * scale)}px "EB Garamond", serif`;
@@ -621,6 +591,7 @@
     </script>
 </body>
 </html>
+
 
 
 
