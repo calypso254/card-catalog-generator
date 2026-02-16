@@ -155,3 +155,30 @@ input[type="radio"]:checked {
     box-shadow: 0 10px 24px rgba(45, 52, 54, 0.16), 0 2px 8px rgba(45, 52, 54, 0.1);
 }
 
+.hero-logo-shell {
+    width: min(200px, 25vw);
+    min-width: 88px;
+    aspect-ratio: 596 / 424;
+    margin-inline: auto;
+    border-radius: 0.75rem;
+    background-color: #E6DED1;
+    overflow: hidden;
+}
+
+.hero-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.hero-title-slot {
+    min-height: 3rem;
+}
+
+@media (min-width: 768px) {
+    .hero-title-slot {
+        min-height: 2.5rem;
+    }
+}
+
