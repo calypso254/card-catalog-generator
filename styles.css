@@ -161,7 +161,6 @@ input[type="radio"]:checked {
     aspect-ratio: 596 / 424;
     margin-inline: auto;
     border-radius: 0.75rem;
-    background-color: #E6DED1;
     overflow: hidden;
 }
 
