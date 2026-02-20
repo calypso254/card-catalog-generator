@@ -310,6 +310,27 @@
             const BASE_WIDTH = 1476;
             const BASE_HEIGHT = 886;
             const DPI = 300;
+            const FONT_STYLE_LABELS = {
+                modern: 'Modern Serif',
+                sans: 'Clean Sans',
+                vintage: 'Vintage Typewriter'
+            };
+            const STYLE_GROUP_MAP = {
+                fontStyle: 'font_style',
+                backgroundStyle: 'background_style',
+                cardSize: 'card_size'
+            };
+            const DETAIL_FIELDS = [
+                { key: 'entry_number', input: entryNumberInput },
+                { key: 'author', input: authorInput },
+                { key: 'title', input: titleInput },
+                { key: 'publication', input: publicationInput },
+                { key: 'description', input: descriptionInput },
+                { key: 'synopsis', input: synopsisInput }
+            ];
+            const initialDetailValues = Object.fromEntries(
+                DETAIL_FIELDS.map(({ key, input }) => [key, input.value.trim()])
+            );
 
             const CARD_SIZES = {
                 '5x3': { wIn: 5, hIn: 3 },
@@ -344,6 +365,52 @@
                 const titleRaw = sanitizeFilePart(titleInput.value, 'Untitled');
                 const titlePart = titleRaw.substring(0, 20).trim() || 'Untitled';
                 return `Card Catalog Generator - ${author} - ${titlePart}`;
+            }
+
+
+            function trackAnalyticsEvent(eventName, params = {}) {
+                if (typeof window.gtag === 'function') {
+                    window.gtag('event', eventName, params);
+                }
+            }
+
+            function getSelectedRadioValue(name, fallback = 'unknown') {
+                const selected = document.querySelector(`input[name="${name}"]:checked`);
+                return selected ? selected.value : fallback;
+            }
+
+            function getAnalyticsContext() {
+                let filledDetailCount = 0;
+                let editedDetailCount = 0;
+                const detailStatus = {};
+
+                DETAIL_FIELDS.forEach(({ key, input }) => {
+                    const trimmedValue = input.value.trim();
+                    const filled = trimmedValue.length > 0;
+                    const edited = trimmedValue !== initialDetailValues[key];
+
+                    if (filled) {
+                        filledDetailCount += 1;
+                    }
+                    if (edited) {
+                        editedDetailCount += 1;
+                    }
+
+                    detailStatus[`${key}_filled`] = filled ? 'yes' : 'no';
+                    detailStatus[`${key}_edited`] = edited ? 'yes' : 'no';
+                });
+
+                const selectedFont = getSelectedRadioValue('fontStyle');
+                return {
+                    font_style: selectedFont,
+                    font_style_label: FONT_STYLE_LABELS[selectedFont] || 'unknown',
+                    background_style: getSelectedRadioValue('backgroundStyle'),
+                    card_size: getSelectedRadioValue('cardSize'),
+                    show_hole_punch: showHoleCheckbox.checked ? 'yes' : 'no',
+                    filled_detail_count: filledDetailCount,
+                    edited_detail_count: editedDetailCount,
+                    ...detailStatus
+                };
             }
 
             function wrapText(context, text, x, y, maxWidth, lineHeight) {
@@ -498,11 +565,46 @@
                 }
             }
 
-            generateBtn.addEventListener('click', generateCard);
-            showHoleCheckbox.addEventListener('change', generateCard);
+            DETAIL_FIELDS.forEach(({ key, input }) => {
+                input.addEventListener('change', () => {
+                    const trimmedValue = input.value.trim();
+                    trackAnalyticsEvent('card_detail_change', {
+                        detail_field: key,
+                        is_filled: trimmedValue.length > 0 ? 'yes' : 'no',
+                        is_edited: trimmedValue !== initialDetailValues[key] ? 'yes' : 'no'
+                    });
+                });
+            });
+
+            generateBtn.addEventListener('click', () => {
+                generateCard();
+                trackAnalyticsEvent('generate_card', getAnalyticsContext());
+            });
+
+            showHoleCheckbox.addEventListener('change', () => {
+                generateCard();
+                trackAnalyticsEvent('style_preference', {
+                    style_group: 'show_hole_punch',
+                    style_value: showHoleCheckbox.checked ? 'yes' : 'no'
+                });
+            });
 
             document.querySelectorAll('input[name="fontStyle"], input[name="backgroundStyle"], input[name="cardSize"]').forEach(radio => {
-                radio.addEventListener('change', generateCard);
+                radio.addEventListener('change', (event) => {
+                    generateCard();
+                    const styleGroup = STYLE_GROUP_MAP[event.target.name] || 'style';
+                    const styleValue = event.target.value;
+                    const payload = {
+                        style_group: styleGroup,
+                        style_value: styleValue
+                    };
+
+                    if (styleGroup === 'font_style') {
+                        payload.style_label = FONT_STYLE_LABELS[styleValue] || styleValue;
+                    }
+
+                    trackAnalyticsEvent('style_preference', payload);
+                });
             });
 
             downloadBtn.addEventListener('click', () => {
@@ -510,6 +612,11 @@
                 link.download = buildDownloadBaseName() + '.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
+                trackAnalyticsEvent('file_download', {
+                    extension: 'png',
+                    file_name: 'catalog_card',
+                    ...getAnalyticsContext()
+                });
             });
 
             downloadPdfBtn.addEventListener('click', () => {
@@ -535,6 +642,11 @@
                 const imageData = canvas.toDataURL('image/png');
                 pdf.addImage(imageData, 'PNG', 0, 0, activeSize.wIn, activeSize.hIn);
                 pdf.save(buildDownloadBaseName() + '.pdf');
+                trackAnalyticsEvent('file_download', {
+                    extension: 'pdf',
+                    file_name: 'catalog_card',
+                    ...getAnalyticsContext()
+                });
             });
 
             setTimeout(generateCard, 500);
