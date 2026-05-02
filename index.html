@@ -16,6 +16,20 @@
     <link rel="canonical" href="https://cardcataloggenerator.com/" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+        .accordion-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        @media (min-width: 768px) {
+            .accordion-content {
+                max-height: none !important;
+            }
+            .accordion-icon {
+                display: none;
+            }
+        }
+    </style>
     
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-45K7J1FFQ4"></script>
@@ -41,20 +55,34 @@
             
             <h1 class="font-bold text-[#006D77] tracking-tight text-[1.5rem] leading-[1.5rem] md:text-4xl md:leading-normal mt-6 hero-title-slot">Free Library Catalog Card Generator</h1>
             <div class="mt-4 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 text-left">
-                <section id="intro" class="bg-[#FFFFFF] p-5 rounded-2xl shadow-sm border border-[#E6DED1]">
-                    <h2 class="text-xl font-bold text-[#2D3436] mb-3">What You Can Do</h2>
-                    <p class="text-lg text-[#2D3436] leading-relaxed">
-                        Create printable library catalog cards for home libraries, scrapbooking, classroom collections, and fictional books. Enter your details and download a vintage-style catalog card instantly.
-                    </p>
+                <section id="intro" class="bg-[#FFFFFF] rounded-2xl shadow-sm border border-[#E6DED1]">
+                    <button type="button" onclick="toggleAccordion('intro-content')" class="w-full p-5 text-left flex justify-between items-center md:cursor-default">
+                        <h2 class="text-xl font-bold text-[#2D3436]">What You Can Do</h2>
+                        <svg class="w-5 h-5 text-[#006D77] transition-transform accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="intro-content" class="accordion-content">
+                        <p class="text-lg text-[#2D3436] leading-relaxed px-5 pb-5">
+                            Create printable library catalog cards for home libraries, scrapbooking, classroom collections, and fictional books. Enter your details and download a vintage-style catalog card instantly.
+                        </p>
+                    </div>
                 </section>
-                <section id="how-it-works" class="bg-[#FFFFFF] p-5 rounded-2xl shadow-sm border border-[#E6DED1]">
-                    <h2 class="text-xl font-bold text-[#2D3436] mb-3">How it works</h2>
-                    <ol class="text-[#2D3436] list-decimal list-inside space-y-2 marker:text-[#006D77] marker:font-bold">
-                        <li>Enter the call number, author, title, and publication info.</li>
-                        <li>Add a synopsis or notes (optional).</li>
-                        <li>Choose a catalog card style: vintage typewriter, modern serif, or clean sans.</li>
-                        <li>Click Generate Card, then download a printable PNG file.</li>
-                    </ol>
+                <section id="how-it-works" class="bg-[#FFFFFF] rounded-2xl shadow-sm border border-[#E6DED1]">
+                    <button type="button" onclick="toggleAccordion('how-content')" class="w-full p-5 text-left flex justify-between items-center md:cursor-default">
+                        <h2 class="text-xl font-bold text-[#2D3436]">How it works</h2>
+                        <svg class="w-5 h-5 text-[#006D77] transition-transform accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="how-content" class="accordion-content">
+                        <ol class="text-[#2D3436] list-decimal list-inside space-y-2 marker:text-[#006D77] marker:font-bold px-5 pb-5">
+                            <li>Enter the call number, author, title, and publication info.</li>
+                            <li>Add a synopsis or notes (optional).</li>
+                            <li>Choose a catalog card style: vintage typewriter, modern serif, or clean sans.</li>
+                            <li>Click Generate Card, then download a printable PNG file.</li>
+                        </ol>
+                    </div>
                 </section>
             </div>
 </header>
@@ -68,15 +96,27 @@
                     <h2 class="text-2xl font-bold mb-6 border-b border-[#E6DED1] pb-3 text-[#2D3436]">Card Details</h2>
                     
                     <div id="presets" class="flex flex-wrap gap-2 mb-4">
-                        <button type="button" onclick="applyPreset('novel')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition">Novel</button>
-                        <button type="button" onclick="applyPreset('nonfiction')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition">Nonfiction</button>
-                        <button type="button" onclick="applyPreset('textbook')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition">Textbook</button>
-                        <button type="button" onclick="applyPreset('fiction')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition">Fictional Book</button>
+                        <button type="button" onclick="applyPreset('novel')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">Novel</button>
+                        <button type="button" onclick="applyPreset('biography')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">Biography</button>
+                        <button type="button" onclick="applyPreset('history')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">History</button>
+                        <button type="button" onclick="applyPreset('poetry')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">Poetry</button>
+                        <button type="button" onclick="applyPreset('reference')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">Reference</button>
                     </div>
 
-                    <div class="space-y-4 lg:flex-grow lg:flex lg:flex-col"> 
+                    <div class="space-y-4 lg:flex-grow lg:flex lg:flex-col">
                         <div>
-                            <label for="entryNumber" class="block font-medium text-[#2D3436] mb-1">Entry/Call Number</label>
+                            <label for="classificationSystem" class="block font-medium text-[#2D3436] mb-1">Classification System</label>
+                            <select id="classificationSystem" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]">
+                                <option value="dewey">Dewey Decimal (e.g., 813.54)</option>
+                                <option value="loc">Library of Congress (e.g., PS3545.H16)</option>
+                                <option value="custom">Custom / Your Own System</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="entryNumber" class="block font-medium text-[#2D3436] mb-1">
+                                <span id="callNumberLabel">Entry/Call Number</span>
+                                <span id="callNumberHint" class="text-sm text-gray-500 ml-2"></span>
+                            </label>
                             <input type="text" id="entryNumber" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="813.54 F26c">
                         </div>
                         <div>
@@ -280,21 +320,113 @@
 
     <script>
         function applyPreset(type){
-            if(type==='novel'){
-                document.querySelector('#entryNumber').value = 'FIC';
+            const presets = {
+                novel: {
+                    entryNumber: '813.54 F26c',
+                    author: 'Faulkner, William',
+                    title: 'The Sound and the Fury',
+                    publication: 'J. Cape & H. Smith, New York, 1929',
+                    description: '326 p. ; 20 cm.',
+                    synopsis: 'A novel detailing the decline and fall of the Compson family in Jefferson, Mississippi.'
+                },
+                biography: {
+                    entryNumber: '973.922 K46',
+                    author: 'Goodwin, Doris Kearns',
+                    title: 'Team of Rivals: The Political Genius of Abraham Lincoln',
+                    publication: 'Simon & Schuster, New York, 2005',
+                    description: '916 p. ; 24 cm.',
+                    synopsis: 'A historical biography examining Lincoln\'s leadership.'
+                },
+                history: {
+                    entryNumber: '940.53 K43',
+                    author: 'Keegan, John',
+                    title: 'The Second World War',
+                    publication: 'Viking, New York, 1989',
+                    description: '595 p. : ill., maps ; 24 cm.',
+                    synopsis: 'A comprehensive military history of World War II.'
+                },
+                poetry: {
+                    entryNumber: '811.54 P583',
+                    author: 'Plath, Sylvia',
+                    title: 'Ariel',
+                    publication: 'Harper & Row, New York, 1966',
+                    description: '85 p. ; 21 cm.',
+                    synopsis: 'A posthumous collection of confessional poetry.'
+                },
+                reference: {
+                    entryNumber: 'REF 423 W562',
+                    author: 'Webster, Noah',
+                    title: 'Webster\'s New International Dictionary',
+                    publication: 'G. & C. Merriam Co., Springfield, 1961',
+                    description: '3194 p. ; 29 cm.',
+                    synopsis: 'Comprehensive dictionary of the English language.'
+                }
+            };
+
+            const preset = presets[type];
+            if (preset) {
+                document.getElementById('entryNumber').value = preset.entryNumber;
+                document.getElementById('author').value = preset.author;
+                document.getElementById('title').value = preset.title;
+                document.getElementById('publication').value = preset.publication;
+                document.getElementById('description').value = preset.description;
+                document.getElementById('synopsis').value = preset.synopsis;
             }
-            if(type==='nonfiction'){
-                document.querySelector('#entryNumber').value = '001';
-            }
-            if(type==='textbook'){
-                document.querySelector('#entryNumber').value = 'TEXT';
-            }
-            if(type==='fiction'){
-                document.querySelector('#author').value = 'Unknown';
+        }
+
+        // Accordion functionality for mobile
+        function toggleAccordion(contentId) {
+            if (window.innerWidth >= 768) return; // Only work on mobile
+            const content = document.getElementById(contentId);
+            const button = content.previousElementSibling;
+            const icon = button.querySelector('.accordion-icon');
+            
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize accordions for mobile
+            function initAccordions() {
+                if (window.innerWidth < 768) {
+                    document.querySelectorAll('.accordion-content').forEach(content => {
+                        content.style.maxHeight = '0px';
+                    });
+                } else {
+                    document.querySelectorAll('.accordion-content').forEach(content => {
+                        content.style.maxHeight = 'none';
+                    });
+                }
+            }
+
+            initAccordions();
+            window.addEventListener('resize', initAccordions);
+
+            // Update call number hint based on classification system
+            const classificationSelect = document.getElementById('classificationSystem');
+            const callNumberHint = document.getElementById('callNumberHint');
+            
+            function updateCallNumberHint() {
+                const system = classificationSelect.value;
+                if (system === 'dewey') {
+                    callNumberHint.textContent = '(numbers like 813.54)';
+                } else if (system === 'loc') {
+                    callNumberHint.textContent = '(letters+numbers like PS3545.H16)';
+                } else {
+                    callNumberHint.textContent = '(any format you like)';
+                }
+            }
+            
+            if (classificationSelect) {
+                classificationSelect.addEventListener('change', updateCallNumberHint);
+                updateCallNumberHint();
+            }
+
             document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
             const canvas = document.getElementById('cardCanvas');
@@ -709,19 +841,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
