@@ -115,9 +115,10 @@
 
                         <!-- Book Lookup Section -->
                         <div class="bg-[#E6DED1] bg-opacity-30 p-4 rounded-lg border border-[#E6DED1]">
-                            <label for="bookSearch" class="block font-medium text-[#2D3436] mb-2">📚 Look up book details</label>
+                            <label for="bookSearch" class="block font-medium text-[#2D3436] mb-1">📚 Look up book details</label>
+                            <p class="text-xs text-gray-600 mb-2">Powered by Google Books API. For best results, search by book title or ISBN.</p>
                             <div class="flex gap-2">
-                                <input type="text" id="bookSearch" placeholder="Enter title, author, or ISBN..." class="flex-grow p-2.5 bg-white border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436] text-sm">
+                                <input type="text" id="bookSearch" placeholder="Enter book title or ISBN..." class="flex-grow p-2.5 bg-white border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436] text-sm">
                                 <button type="button" onclick="lookupBook()" id="lookupBtn" class="px-4 py-2.5 bg-[#006D77] text-white rounded-lg hover:bg-[#005560] transition font-medium text-sm whitespace-nowrap">
                                     Search
                                 </button>
@@ -149,7 +150,10 @@
                             <input type="text" id="description" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="326 p. ; 20 cm.">
                         </div>
                         <div class="lg:flex-grow lg:flex lg:flex-col">
-                            <label for="synopsis" class="block font-medium text-[#2D3436] mb-1">Synopsis / Notes</label>
+                            <label for="synopsis" class="block font-medium text-[#2D3436] mb-1">
+                                Synopsis / Notes
+                                <span class="text-xs text-gray-500 font-normal ml-2">(from Google Books if auto-filled)</span>
+                            </label>
                             <textarea id="synopsis" rows="5" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436] lg:flex-grow resize-none">A novel detailing the decline and fall of the Compson family in Jefferson, Mississippi. Told from multiple perspectives, it explores themes of memory, time, and the decay of the Southern aristocracy.</textarea>
                         </div>
                     </div>
@@ -472,15 +476,18 @@
                 }
 
                 if (book.description) {
-                    // Clean HTML tags and limit length
-                    const cleanDesc = book.description.replace(/<[^>]*>/g, '').substring(0, 300);
+                    // Clean HTML tags and limit length to ~500 chars
+                    const cleanDesc = book.description.replace(/<[^>]*>/g, '').substring(0, 500);
                     document.getElementById('synopsis').value = cleanDesc;
                 }
 
-                // Generate a call number based on classification system and categories
+                // Generate a call number based on classification system
+                // Always generate one, even if no categories
+                const classificationSystem = document.getElementById('classificationSystem').value;
+                let callNumber = '';
+                
                 if (book.categories && book.categories.length > 0) {
                     const category = book.categories[0];
-                    let callNumber = '';
                     
                     if (classificationSystem === 'dewey') {
                         // Simple Dewey mapping based on category
@@ -491,25 +498,34 @@
                         else if (category.match(/poetry/i)) callNumber = '811';
                         else if (category.match(/reference/i)) callNumber = 'REF';
                         else callNumber = '000';
-                        
-                        // Add author initial if we have an author
-                        if (book.authors && book.authors.length > 0) {
-                            const authorLast = book.authors[0].split(' ').pop();
-                            callNumber += ` ${authorLast.substring(0, 3).toUpperCase()}`;
-                        }
                     } else if (classificationSystem === 'loc') {
                         // Simple LOC mapping
                         if (category.match(/fiction|novel/i)) callNumber = 'PS';
                         else if (category.match(/biography/i)) callNumber = 'CT';
                         else if (category.match(/history/i)) callNumber = 'D';
                         else callNumber = 'A';
-                    } else {
-                        // Custom - just use first letter of title
-                        callNumber = book.title.substring(0, 1).toUpperCase();
                     }
-                    
-                    document.getElementById('entryNumber').value = callNumber;
+                } else {
+                    // No categories - use generic fallback
+                    if (classificationSystem === 'dewey') {
+                        callNumber = '000'; // General works
+                    } else if (classificationSystem === 'loc') {
+                        callNumber = 'A'; // General works
+                    }
                 }
+                
+                // Add author identifier for all classification systems
+                if (classificationSystem !== 'custom') {
+                    if (book.authors && book.authors.length > 0) {
+                        const authorLast = book.authors[0].split(' ').pop();
+                        callNumber += ` ${authorLast.substring(0, 3).toUpperCase()}`;
+                    }
+                } else {
+                    // Custom - just use first letter of title
+                    callNumber = book.title.substring(0, 1).toUpperCase();
+                }
+                
+                document.getElementById('entryNumber').value = callNumber;
 
                 statusEl.textContent = `✓ Found: ${book.title}`;
                 statusEl.className = 'text-xs text-green-600 mt-2';
