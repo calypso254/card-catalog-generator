@@ -112,6 +112,19 @@
                                 <option value="custom">Custom / Your Own System</option>
                             </select>
                         </div>
+
+                        <!-- Book Lookup Section -->
+                        <div class="bg-[#E6DED1] bg-opacity-30 p-4 rounded-lg border border-[#E6DED1]">
+                            <label for="bookSearch" class="block font-medium text-[#2D3436] mb-2">📚 Look up book details</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="bookSearch" placeholder="Enter title, author, or ISBN..." class="flex-grow p-2.5 bg-white border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436] text-sm">
+                                <button type="button" onclick="lookupBook()" id="lookupBtn" class="px-4 py-2.5 bg-[#006D77] text-white rounded-lg hover:bg-[#005560] transition font-medium text-sm whitespace-nowrap">
+                                    Search
+                                </button>
+                            </div>
+                            <p id="lookupStatus" class="text-xs text-gray-600 mt-2 hidden"></p>
+                        </div>
+
                         <div>
                             <label for="entryNumber" class="block font-medium text-[#2D3436] mb-1">
                                 <span id="callNumberLabel">Entry/Call Number</span>
@@ -373,6 +386,136 @@
                 document.getElementById('synopsis').value = preset.synopsis;
             }
         }
+
+        // Book Lookup using Google Books API
+        async function lookupBook() {
+            const searchInput = document.getElementById('bookSearch');
+            const statusEl = document.getElementById('lookupStatus');
+            const lookupBtn = document.getElementById('lookupBtn');
+            const query = searchInput.value.trim();
+            
+            if (!query) {
+                statusEl.textContent = 'Please enter a search term';
+                statusEl.className = 'text-xs text-red-600 mt-2';
+                statusEl.classList.remove('hidden');
+                return;
+            }
+
+            // Show loading state
+            lookupBtn.disabled = true;
+            lookupBtn.textContent = 'Searching...';
+            statusEl.textContent = 'Looking up book...';
+            statusEl.className = 'text-xs text-gray-600 mt-2';
+            statusEl.classList.remove('hidden');
+
+            try {
+                const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=1`);
+                const data = await response.json();
+
+                if (!data.items || data.items.length === 0) {
+                    statusEl.textContent = 'No book found. Try a different search or enter details manually.';
+                    statusEl.className = 'text-xs text-amber-600 mt-2';
+                    lookupBtn.disabled = false;
+                    lookupBtn.textContent = 'Search';
+                    return;
+                }
+
+                const book = data.items[0].volumeInfo;
+                const classificationSystem = document.getElementById('classificationSystem').value;
+                
+                // Fill in the fields with book data
+                if (book.authors && book.authors.length > 0) {
+                    // Format author as "Last, First" if possible
+                    const author = book.authors[0];
+                    const nameParts = author.split(' ');
+                    if (nameParts.length > 1) {
+                        const lastName = nameParts[nameParts.length - 1];
+                        const firstName = nameParts.slice(0, -1).join(' ');
+                        document.getElementById('author').value = `${lastName}, ${firstName}`;
+                    } else {
+                        document.getElementById('author').value = author;
+                    }
+                }
+
+                if (book.title) {
+                    document.getElementById('title').value = book.title;
+                }
+
+                if (book.publisher || book.publishedDate) {
+                    const pubParts = [];
+                    if (book.publisher) pubParts.push(book.publisher);
+                    if (book.publishedDate) pubParts.push(book.publishedDate.substring(0, 4));
+                    document.getElementById('publication').value = pubParts.join(', ');
+                }
+
+                if (book.pageCount) {
+                    document.getElementById('description').value = `${book.pageCount} p.`;
+                }
+
+                if (book.description) {
+                    // Clean HTML tags and limit length
+                    const cleanDesc = book.description.replace(/<[^>]*>/g, '').substring(0, 300);
+                    document.getElementById('synopsis').value = cleanDesc;
+                }
+
+                // Generate a call number based on classification system and categories
+                if (book.categories && book.categories.length > 0) {
+                    const category = book.categories[0];
+                    let callNumber = '';
+                    
+                    if (classificationSystem === 'dewey') {
+                        // Simple Dewey mapping based on category
+                        if (category.match(/fiction|novel/i)) callNumber = '813';
+                        else if (category.match(/biography|memoir/i)) callNumber = '920';
+                        else if (category.match(/history/i)) callNumber = '900';
+                        else if (category.match(/science/i)) callNumber = '500';
+                        else if (category.match(/poetry/i)) callNumber = '811';
+                        else if (category.match(/reference/i)) callNumber = 'REF';
+                        else callNumber = '000';
+                        
+                        // Add author initial if we have an author
+                        if (book.authors && book.authors.length > 0) {
+                            const authorLast = book.authors[0].split(' ').pop();
+                            callNumber += ` ${authorLast.substring(0, 3).toUpperCase()}`;
+                        }
+                    } else if (classificationSystem === 'loc') {
+                        // Simple LOC mapping
+                        if (category.match(/fiction|novel/i)) callNumber = 'PS';
+                        else if (category.match(/biography/i)) callNumber = 'CT';
+                        else if (category.match(/history/i)) callNumber = 'D';
+                        else callNumber = 'A';
+                    } else {
+                        // Custom - just use first letter of title
+                        callNumber = book.title.substring(0, 1).toUpperCase();
+                    }
+                    
+                    document.getElementById('entryNumber').value = callNumber;
+                }
+
+                statusEl.textContent = `✓ Found: ${book.title}`;
+                statusEl.className = 'text-xs text-green-600 mt-2';
+                
+            } catch (error) {
+                statusEl.textContent = 'Error connecting to book database. Please enter details manually.';
+                statusEl.className = 'text-xs text-red-600 mt-2';
+                console.error('Book lookup error:', error);
+            } finally {
+                lookupBtn.disabled = false;
+                lookupBtn.textContent = 'Search';
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('bookSearch');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        lookupBook();
+                    }
+                });
+            }
+        });
 
         // Accordion functionality for mobile
         function toggleAccordion(contentId) {
