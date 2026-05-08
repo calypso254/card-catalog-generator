@@ -441,7 +441,6 @@
                 }
 
                 const book = data.items[0].volumeInfo;
-                const classificationSystem = document.getElementById('classificationSystem').value;
                 
                 // Fill in the fields with book data
                 if (book.authors && book.authors.length > 0) {
@@ -522,7 +521,7 @@
                     }
                 } else {
                     // Custom - just use first letter of title
-                    callNumber = book.title.substring(0, 1).toUpperCase();
+                    callNumber = book.title ? book.title.substring(0, 1).toUpperCase() : 'UNTITLED';
                 }
                 
                 document.getElementById('entryNumber').value = callNumber;
