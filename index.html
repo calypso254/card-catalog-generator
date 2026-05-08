@@ -1,495 +1,369 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Create printable library cards with a free library card creator and library catalog card template maker for books, classrooms, scrapbooks, and home libraries." />
-    <meta name="google-adsense-account" content="ca-pub-4860007029459271">
-    <meta property="og:title" content="Free Library Card Generator & Catalog Card Template Creator" />
+<meta name="description" content="Create printable library cards with a free library card creator and library catalog card template maker for books, classrooms, scrapbooks, and home libraries." />
+<meta name="google-adsense-account" content="ca-pub-4860007029459271">
+<meta property="og:title" content="Free Library Card Generator & Catalog Card Template Creator" />
 <meta property="og:description" content="Create printable library cards with a free library card creator and library catalog card template maker. Download vintage-style cards instantly." />
 <meta property="og:url" content="https://www.cardcataloggenerator.com/" />
 <meta property="og:type" content="website" />
+<title>Free Library Card Generator & Catalog Card Template Creator</title>
+<link rel="canonical" href="https://cardcataloggenerator.com/" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" href="styles.css" />
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
 
-    <title>Free Library Card Generator & Catalog Card Template Creator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
-    <link rel="canonical" href="https://cardcataloggenerator.com/" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-        .accordion-content {
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            .accordion-content {
-                max-height: none !important;
-            }
-            .accordion-icon {
-                display: none;
-            }
-        }
-    </style>
-    
-    <!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-45K7J1FFQ4"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-45K7J1FFQ4');
 </script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4860007029459271"
-     crossorigin="anonymous"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4860007029459271" crossorigin="anonymous"></script>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <a class="brand-mark" href="/" aria-label="Card Catalog Generator home">
+                <img src="assets/card-catalog-generator-logo.webp" alt="Card Catalog Generator" width="596" height="424" fetchpriority="high">
+            </a>
+            <button class="mobile-menu-button" type="button" id="mobileMenuBtn" aria-label="Open navigation" aria-expanded="false">
+                <i data-lucide="menu"></i>
+            </button>
+            <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#examples">Examples</a>
+                <a href="#faq">FAQ</a>
+                <a href="#about">About</a>
+                <a href="#generator" class="button button-primary">Generate Card</a>
+            </nav>
+        </header>
 
-    <div class="container mx-auto p-4 md:p-8 flex-grow">
-        <header class="text-center mb-8">
-            <!-- Top Logo -->
-            <div class="hero-logo-shell">
-                <img src="card_catalog_generator_logo.svg" alt="Card Catalog Generator Logo" width="596" height="424" loading="eager" fetchpriority="high" decoding="async" class="hero-logo">
-            </div>
-            
-            <h1 class="font-bold text-[#006D77] tracking-tight text-[1.5rem] leading-[1.5rem] md:text-4xl md:leading-normal mt-6 hero-title-slot">Free Library Catalog Card Generator</h1>
-            <div class="mt-4 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 text-left">
-                <section id="intro" class="bg-[#FFFFFF] rounded-2xl shadow-sm border border-[#E6DED1]">
-                    <button type="button" onclick="toggleAccordion('intro-content')" class="w-full p-5 text-left flex justify-between items-center md:cursor-default">
-                        <h2 class="text-xl font-bold text-[#2D3436]">What You Can Do</h2>
-                        <svg class="w-5 h-5 text-[#006D77] transition-transform accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    <div id="intro-content" class="accordion-content">
-                        <p class="text-lg text-[#2D3436] leading-relaxed px-5 pb-5">
-                            Create printable library catalog cards for home libraries, scrapbooking, classroom collections, and fictional books. Enter your details and download a vintage-style catalog card instantly.
-                        </p>
+        <main>
+            <section class="hero" aria-labelledby="hero-title">
+                <div class="hero-copy">
+                    <h1 id="hero-title">Create beautiful library catalog cards.</h1>
+                    <p>Design and download vintage-style catalog cards for your books, libraries, and creative projects.</p>
+                    <div class="hero-actions">
+                        <a href="#generator" class="button button-primary">Generate a Card</a>
+                        <a href="#examples" class="button button-secondary">View Examples</a>
                     </div>
-                </section>
-                <section id="how-it-works" class="bg-[#FFFFFF] rounded-2xl shadow-sm border border-[#E6DED1]">
-                    <button type="button" onclick="toggleAccordion('how-content')" class="w-full p-5 text-left flex justify-between items-center md:cursor-default">
-                        <h2 class="text-xl font-bold text-[#2D3436]">How it works</h2>
-                        <svg class="w-5 h-5 text-[#006D77] transition-transform accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    <div id="how-content" class="accordion-content">
-                        <ol class="text-[#2D3436] list-decimal list-inside space-y-2 marker:text-[#006D77] marker:font-bold px-5 pb-5">
-                            <li>Enter the call number, author, title, and publication info.</li>
-                            <li>Add a synopsis or notes (optional).</li>
-                            <li>Choose a catalog card style: vintage typewriter, modern serif, or clean sans.</li>
-                            <li>Click Generate Card, then download a printable PNG file.</li>
-                        </ol>
-                    </div>
-                </section>
-            </div>
-</header>
+                </div>
+                <div class="hero-media" aria-hidden="true">
+                    <img src="assets/catalog-card-hero.png" alt="">
+                </div>
+            </section>
 
-        <!-- Main Grid Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            <!-- LEFT COLUMN: Card Details -->
-            <div class="lg:col-start-1 lg:h-full">
-                 <div class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1] lg:h-full lg:flex lg:flex-col">
-                    <h2 class="text-2xl font-bold mb-6 border-b border-[#E6DED1] pb-3 text-[#2D3436]">Card Details</h2>
-                    
-                    <div id="presets" class="flex flex-wrap gap-2 mb-4">
-                        <button type="button" onclick="applyPreset('novel')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">Novel</button>
-                        <button type="button" onclick="applyPreset('biography')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">Biography</button>
-                        <button type="button" onclick="applyPreset('history')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">History</button>
-                        <button type="button" onclick="applyPreset('poetry')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">Poetry</button>
-                        <button type="button" onclick="applyPreset('reference')" class="px-3 py-2 rounded-lg border border-[#E6DED1] bg-[#FBF7EF] text-[#2D3436] hover:border-[#006D77] hover:text-[#006D77] transition text-sm">Reference</button>
+            <section id="generator" class="generator-grid" aria-label="Create your card">
+                <div class="panel">
+                    <h2 class="panel-title"><i data-lucide="clipboard-list"></i> Card Details</h2>
+                    <div class="preset-row" id="presets" aria-label="Example presets">
+                        <button type="button" data-preset="novel">Novel</button>
+                        <button type="button" data-preset="biography">Biography</button>
+                        <button type="button" data-preset="history">History</button>
+                        <button type="button" data-preset="poetry">Poetry</button>
+                        <button type="button" data-preset="reference">Reference</button>
                     </div>
 
-                    <div class="space-y-4 lg:flex-grow lg:flex lg:flex-col">
-                        <div>
-                            <label for="classificationSystem" class="block font-medium text-[#2D3436] mb-1">Classification System</label>
-                            <select id="classificationSystem" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]">
+                    <div class="form-grid">
+                        <div class="field-full">
+                            <label for="classificationSystem">Classification System</label>
+                            <select id="classificationSystem">
                                 <option value="dewey">Dewey Decimal (e.g., 813.54)</option>
                                 <option value="loc">Library of Congress (e.g., PS3545.H16)</option>
                                 <option value="custom">Custom / Your Own System</option>
                             </select>
                         </div>
-
-                        <!-- Book Lookup Section -->
-                        <div class="bg-[#E6DED1] bg-opacity-30 p-4 rounded-lg border border-[#E6DED1]">
-                            <label for="bookSearch" class="block font-medium text-[#2D3436] mb-1">📚 Look up book details</label>
-                            <p class="text-xs text-gray-600 mb-2">Powered by Google Books API. For best results, search by book title or ISBN.</p>
-                            <div class="flex gap-2">
-                                <input type="text" id="bookSearch" placeholder="Enter book title or ISBN..." class="flex-grow p-2.5 bg-white border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436] text-sm">
-                                <button type="button" onclick="lookupBook()" id="lookupBtn" class="px-4 py-2.5 bg-[#006D77] text-white rounded-lg hover:bg-[#005560] transition font-medium text-sm whitespace-nowrap">
-                                    Search
-                                </button>
-                            </div>
-                            <p id="lookupStatus" class="text-xs text-gray-600 mt-2 hidden"></p>
-                        </div>
-
-                        <div>
-                            <label for="entryNumber" class="block font-medium text-[#2D3436] mb-1">
-                                <span id="callNumberLabel">Entry/Call Number</span>
-                                <span id="callNumberHint" class="text-sm text-gray-500 ml-2"></span>
-                            </label>
-                            <input type="text" id="entryNumber" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="823.7 A93p">
+                        <div class="field-full">
+                            <label for="entryNumber">Entry / Call Number <span id="callNumberHint"></span></label>
+                            <input type="text" id="entryNumber" value="823.7 A93p">
                         </div>
                         <div>
-                            <label for="author" class="block font-medium text-[#2D3436] mb-1">Author (Last, First)</label>
-                            <input type="text" id="author" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="Austen, Jane">
+                            <label for="author">Author (Last, First)</label>
+                            <input type="text" id="author" value="Austen, Jane">
                         </div>
                         <div>
-                            <label for="title" class="block font-medium text-[#2D3436] mb-1">Title</label>
-                            <input type="text" id="title" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="Pride and Prejudice">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" value="Pride and Prejudice">
                         </div>
                         <div>
-                            <label for="publication" class="block font-medium text-[#2D3436] mb-1">Publication Info (Publisher, City, Year)</label>
-                            <input type="text" id="publication" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="T. Egerton, London, 1813">
+                            <label for="publication">Publication Info (City, Year)</label>
+                            <input type="text" id="publication" value="T. Egerton, London, 1813">
                         </div>
-                          <div>
-                            <label for="description" class="block font-medium text-[#2D3436] mb-1">Physical Description (pages, size)</label>
-                            <input type="text" id="description" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436]" value="432 p. ; 19 cm.">
+                        <div>
+                            <label for="description">Physical Description (pages, size)</label>
+                            <input type="text" id="description" value="432 p. ; 19 cm.">
                         </div>
-                        <div class="lg:flex-grow lg:flex lg:flex-col">
-                            <label for="synopsis" class="block font-medium text-[#2D3436] mb-1">
-                                Synopsis / Notes
-                                <span class="text-xs text-gray-500 font-normal ml-2">(from Google Books if auto-filled)</span>
-                            </label>
-                            <textarea id="synopsis" rows="5" class="w-full p-3 bg-[#FBF7EF] border border-[#E6DED1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006D77] focus:border-transparent transition text-[#2D3436] lg:flex-grow resize-none">A classic novel following Elizabeth Bennet as she navigates family expectations, first impressions, and her changing opinion of Mr. Darcy.</textarea>
+                        <div class="field-full">
+                            <label for="synopsis">Synopsis / Notes <span class="control-label" style="display:inline;font-weight:400;color:var(--muted);">(optional)</span></label>
+                            <textarea id="synopsis" rows="5">A classic novel following Elizabeth Bennet as she navigates family expectations, first impressions, and her changing opinion of Mr. Darcy.</textarea>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- RIGHT COLUMN: Style, Generate, Preview, Download -->
-            <div class="lg:col-start-2 flex flex-col gap-6">
-                 <div class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1]">
-                    <h2 class="text-2xl font-bold mb-6 border-b border-[#E6DED1] pb-3 text-[#2D3436]">Card Style</h2>
-                    <div class="space-y-6">
+                    <div class="lookup-row">
                         <div>
-                            <h3 class="font-semibold text-[#2D3436] mb-3">Font Style</h3>
-                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-wrap">
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="fontStyle" value="modern" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]" checked>
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Modern Serif</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="fontStyle" value="sans" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Clean Sans</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="fontStyle" value="vintage" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Vintage Typewriter</span>
-                                </label>
-                            </div>
+                            <label for="bookSearch"><i data-lucide="book-open"></i> Look up book details</label>
+                            <p class="lookup-note">Powered by Google Books API. For best results, search by book title or ISBN.</p>
+                            <input type="text" id="bookSearch" placeholder="Enter book title or ISBN...">
                         </div>
-                        <div>
-                            <h3 class="font-semibold text-[#2D3436] mb-3">Background Style</h3>
-                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-wrap">
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="backgroundStyle" value="transparent" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Transparent</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="backgroundStyle" value="white" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]" checked>
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Clean White</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="backgroundStyle" value="vintage" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Aged Paper</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="backgroundStyle" value="textured" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">Textured Aged Paper</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-[#2D3436] mb-2">Card Size</h3>
-                            <p class="text-sm text-[#2D3436] mb-3">Standard (US & Europe): 5 x 3 in (12.5 x 7.5 cm).</p>
-                            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 flex-wrap">
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="cardSize" value="5x3" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]" checked>
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">5 x 3 in (12.5 x 7.5 cm)</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="cardSize" value="6x4" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">6 x 4 in (15.2 x 10.2 cm)</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="cardSize" value="8x5" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">8 x 5 in (20.3 x 12.7 cm)</span>
-                                </label>
-                                <label class="flex items-center cursor-pointer group">
-                                    <input type="radio" name="cardSize" value="a7" class="w-5 h-5 text-[#006D77] border-gray-300 focus:ring-[#006D77]">
-                                    <span class="ml-2 text-[#2D3436] group-hover:text-[#006D77] transition">A7 ISO (4.13 x 2.91 in / 10.5 x 7.4 cm)</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-[#2D3436] mb-3">Options</h3>
-                            <label class="inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="showHole" class="sr-only peer" checked>
-                                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#83C5BE] rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#006D77]"></div>
-                                <span class="ms-3 text-[#2D3436] font-medium">Show Hole Punch</span>
-                            </label>
+                        <button type="button" id="lookupBtn" class="button button-primary">Search</button>
+                    </div>
+                    <p id="lookupStatus" class="hidden"></p>
+                </div>
+
+                <div class="panel">
+                    <h2 class="panel-title"><i data-lucide="settings-2"></i> Card Style</h2>
+                    <div class="style-group">
+                        <h3>Font Style</h3>
+                        <div class="radio-stack">
+                            <label class="choice"><input type="radio" name="fontStyle" value="modern" checked> Modern Serif</label>
+                            <label class="choice"><input type="radio" name="fontStyle" value="sans"> Clean Sans</label>
+                            <label class="choice"><input type="radio" name="fontStyle" value="vintage"> Vintage Typewriter</label>
                         </div>
                     </div>
+                    <div class="style-group">
+                        <h3>Background</h3>
+                        <div class="radio-stack radio-grid">
+                            <label class="choice"><input type="radio" name="backgroundStyle" value="white" checked> Clean White</label>
+                            <label class="choice"><input type="radio" name="backgroundStyle" value="vintage"> Aged Paper</label>
+                            <label class="choice"><input type="radio" name="backgroundStyle" value="textured"> Textured Aged Paper</label>
+                            <label class="choice"><input type="radio" name="backgroundStyle" value="transparent"> Transparent</label>
+                        </div>
+                    </div>
+                    <div class="style-group">
+                        <h3>Card Size (Standard)</h3>
+                        <div class="radio-stack">
+                            <label class="choice"><input type="radio" name="cardSize" value="5x3" checked> 5 x 3 in (12.5 x 7.5 cm)</label>
+                            <label class="choice"><input type="radio" name="cardSize" value="6x4"> 6 x 4 in (15.2 x 10.2 cm)</label>
+                            <label class="choice"><input type="radio" name="cardSize" value="8x5"> 8 x 5 in (20.3 x 12.7 cm)</label>
+                            <label class="choice"><input type="radio" name="cardSize" value="a7"> A7 ISO (4.13 x 2.91 in / 10.5 x 7.4 cm)</label>
+                        </div>
+                    </div>
+                    <div class="style-group">
+                        <h3>Options</h3>
+                        <label class="switch-row">
+                            <input type="checkbox" id="showHole" checked>
+                            <span class="switch-ui" aria-hidden="true"></span>
+                            <span>Show Hole Punch</span>
+                        </label>
+                    </div>
                 </div>
-                <button id="generateBtn" class="w-full bg-[#006D77] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#005A63] focus:outline-none focus:ring-4 focus:ring-[#83C5BE] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg">
-                    Generate Card
-                </button>
 
-                 <div class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1] flex items-center justify-center min-h-[300px]">
-                    <canvas id="cardCanvas" class="w-full h-auto rounded-lg canvas-spotlight"></canvas>
+                <div class="panel preview-panel">
+                    <h2 class="panel-title"><i data-lucide="scan-eye"></i> Preview</h2>
+                    <div class="preview-frame">
+                        <canvas id="cardCanvas"></canvas>
+                    </div>
+                    <div class="download-actions">
+                        <button type="button" id="downloadBtn" data-download="png" class="button button-primary" style="width:100%;"><i data-lucide="download"></i> Download PNG</button>
+                        <button type="button" id="downloadPdfBtn" data-download="pdf" class="button button-danger" style="width:100%;margin-top:.8rem;"><i data-lucide="file-down"></i> Download PDF</button>
+                    </div>
+                    <div class="tip-box"><strong>Tip:</strong> Bookmark this page to create a new card each time you add a book.</div>
                 </div>
+            </section>
 
-                <button id="downloadBtn" class="w-full bg-[#006D77] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#005A63] focus:outline-none focus:ring-4 focus:ring-[#83C5BE] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    Download PNG
-                </button>
-
-                <button id="downloadPdfBtn" class="w-full bg-[#FF6F61] text-white font-bold py-4 px-6 rounded-xl hover:bg-[#E65E53] focus:outline-none focus:ring-4 focus:ring-[#FFC1B9] transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform active:scale-95 text-lg flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 16v-8m0 8l-3-3m3 3l3-3M6 20h12" />
-                    </svg>
-                    Download PDF
-                </button>
-
-            
-                <section id="uses" class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1]">
-  <h2>Common Uses</h2>
-  <ul class="list-disc list-inside text-[#2D3436] space-y-1">
-    <li>Scrapbooking and junk journals</li>
-    <li>Home library catalog cards</li>
-    <li>Classroom library systems</li>
-    <li>Reading trackers and book logs</li>
-    <li>Fictional book and prop cards</li>
-  </ul>
-  <p class="text-[#2D3436] mt-4"><strong>Tip:</strong> Bookmark this page to create a new card each time you add a book.</p>
-</section>
-
-<section id="faq" class="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-[#E6DED1]">
-  <h2>FAQ</h2>
-
-  <details>
-    <summary>What is a library catalog card?</summary>
-    <p>A catalog card is a structured record of a book’s title, author, and classification used in traditional library card catalogs.</p>
-  </details>
-
-  <details>
-    <summary>Can I create cards for fictional books?</summary>
-    <p>Yes. You can enter any title and author to generate prop or creative project cards.</p>
-  </details>
-
-  <details>
-    <summary>What paper size should I print on?</summary>
-    <p>Standard letter or A4 works, and if your printer supports direct card stock/card sizes, you can print directly on the card. Downloads keep true dimensions, so the PNG or PDF matches the exact size you selected above.</p>
-  </details>
-
-  <details>
-    <summary>Do you store my entries?</summary>
-    <p>No. Data is generated in your browser and not saved on a server.</p>
-  </details>
-</section></div>
-
-        </div>
-
-        <!-- Full Width Ads Container -->
-        <div class="mt-8 w-full bg-[#FBF7EF] border border-[#E6DED1] border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center min-h-[120px]">
-            <!-- Before Download -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-4860007029459271"
-                 data-ad-slot="5599236914"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-            <p class="text-[#2D3436] text-xs mt-2 opacity-70">Support us by disabling ad blockers</p>
-        </div>
-
-
-        <section id="about" class="max-w-5xl mx-auto mt-10 px-2 md:px-0">
-            <h2>About This Tool</h2>
-            <p class="text-[#2D3436] leading-relaxed mb-6">
-                Card Catalog Generator is a free printable library catalog card generator for book lovers, librarians, teachers, and archivists.
-                Create and download classic library catalog cards for any book, zine, personal library, classroom library, or reading journal.
-                Unlimited use, no charge.
-            </p>
-        </section>
-        <footer class="text-center mt-12 mb-8 text-[#2D3436]">
-            <div class="site-footer-brand mb-4">
-                <img src="card_catalog_generator_logo.svg" alt="Card Catalog Generator Logo" loading="lazy">
-                <span>CardCatalogGenerator.com</span>
+            <div class="mobile-quick-downloads">
+                <button type="button" data-download="png" class="button button-primary"><i data-lucide="download"></i> Download PNG</button>
+                <button type="button" data-download="pdf" class="button button-danger"><i data-lucide="file-down"></i> Download PDF</button>
             </div>
-            <p>A simple tool for book lovers and archivists.</p>
-            <p class="text-sm mt-2">&copy; <span id="copyrightYear">2026</span>, Calypso Pixels.</p>
-            <p class="text-sm mt-2 footer-links">
-                <a class="text-[#006D77] hover:underline" href="/blog/">Blog</a>
-                <span aria-hidden="true">|</span>
-                <a class="text-[#006D77] hover:underline" href="/privacy.html">Privacy Policy</a>
-            </p>
+
+            <div class="content-row">
+                <section id="examples" class="section-card">
+                    <h2><i data-lucide="library"></i> Common uses</h2>
+                    <div class="use-grid">
+                        <div class="use-item"><i data-lucide="book-open"></i><span>Home library catalog cards</span></div>
+                        <div class="use-item"><i data-lucide="book-marked"></i><span>Reading trackers &amp; book logs</span></div>
+                        <div class="use-item"><i data-lucide="archive"></i><span>Classroom library systems</span></div>
+                        <div class="use-item"><i data-lucide="notebook-tabs"></i><span>Scrapbooking &amp; junk journals</span></div>
+                        <div class="use-item"><i data-lucide="clapperboard"></i><span>Fictional book &amp; prop cards</span></div>
+                    </div>
+                </section>
+                <section id="how-it-works" class="section-card">
+                    <h2><i data-lucide="list-checks"></i> How it works</h2>
+                    <ol class="steps">
+                        <li><span>1</span>Enter your book details.</li>
+                        <li><span>2</span>Choose a style and size.</li>
+                        <li><span>3</span>Preview your card.</li>
+                        <li><span>4</span>Download and print.</li>
+                    </ol>
+                    <p><a href="#generator">Create a card now</a></p>
+                </section>
+            </div>
+
+            <section id="faq" class="content-row" style="grid-template-columns:1fr 1fr;">
+                <div class="section-card">
+                    <h2><i data-lucide="circle-help"></i> FAQ</h2>
+                    <details>
+                        <summary>What is a library catalog card?</summary>
+                        <p>A catalog card is a structured record of a book's title, author, and classification used in traditional library card catalogs.</p>
+                    </details>
+                    <details>
+                        <summary>Can I create cards for fictional books?</summary>
+                        <p>Yes. You can enter any title and author to generate prop or creative project cards.</p>
+                    </details>
+                    <details>
+                        <summary>What paper size should I print on?</summary>
+                        <p>Standard letter or A4 works, and downloads keep true dimensions for the card size you select.</p>
+                    </details>
+                </div>
+                <div id="about" class="section-card">
+                    <h2><i data-lucide="heart"></i> About This Tool</h2>
+                    <p>Card Catalog Generator is a free printable library catalog card generator for book lovers, librarians, teachers, and archivists. Create and download classic library catalog cards for any book, zine, classroom library, or reading journal.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-copy">
+                <strong>About This Tool</strong><br>
+                Card Catalog Generator is free to use and runs in your browser.
+            </div>
+            <div class="footer-brand">
+                <img src="assets/card-catalog-footer-logo.webp" alt="" loading="lazy">
+                <div>
+                    <strong>CardCatalogGenerator.com</strong>
+                    <small>A simple tool for book lovers and archivists.</small><br>
+                    <small>&copy; <span id="copyrightYear">2026</span>, Calypso Pixels. <span class="footer-links"><a href="/blog/">Blog</a><span>|</span><a href="/privacy.html">Privacy Policy</a></span></small>
+                </div>
+            </div>
+            <div class="footer-note tip-box">Made with care for book lovers everywhere.</div>
         </footer>
     </div>
 
     <script>
-        function applyPreset(type){
-            const presets = {
-                novel: {
-                    entryNumber: '823.7 A93p',
-                    author: 'Austen, Jane',
-                    title: 'Pride and Prejudice',
-                    publication: 'T. Egerton, London, 1813',
-                    description: '432 p. ; 19 cm.',
-                    synopsis: 'A classic novel following Elizabeth Bennet as she navigates family expectations and first impressions.'
-                },
-                biography: {
-                    entryNumber: '973.922 K46',
-                    author: 'Goodwin, Doris Kearns',
-                    title: 'Team of Rivals: The Political Genius of Abraham Lincoln',
-                    publication: 'Simon & Schuster, New York, 2005',
-                    description: '916 p. ; 24 cm.',
-                    synopsis: 'A historical biography examining Lincoln\'s leadership.'
-                },
-                history: {
-                    entryNumber: '940.53 K43',
-                    author: 'Keegan, John',
-                    title: 'The Second World War',
-                    publication: 'Viking, New York, 1989',
-                    description: '595 p. : ill., maps ; 24 cm.',
-                    synopsis: 'A comprehensive military history of World War II.'
-                },
-                poetry: {
-                    entryNumber: '811.54 P583',
-                    author: 'Plath, Sylvia',
-                    title: 'Ariel',
-                    publication: 'Harper & Row, New York, 1966',
-                    description: '85 p. ; 21 cm.',
-                    synopsis: 'A posthumous collection of confessional poetry.'
-                },
-                reference: {
-                    entryNumber: 'REF 423 W562',
-                    author: 'Webster, Noah',
-                    title: 'Webster\'s New International Dictionary',
-                    publication: 'G. & C. Merriam Co., Springfield, 1961',
-                    description: '3194 p. ; 29 cm.',
-                    synopsis: 'Comprehensive dictionary of the English language.'
-                }
-            };
+        const presets = {
+            novel: {
+                entryNumber: '823.7 A93p',
+                author: 'Austen, Jane',
+                title: 'Pride and Prejudice',
+                publication: 'T. Egerton, London, 1813',
+                description: '432 p. ; 19 cm.',
+                synopsis: 'A classic novel following Elizabeth Bennet as she navigates family expectations, first impressions, and her changing opinion of Mr. Darcy.'
+            },
+            biography: {
+                entryNumber: '973.922 K46',
+                author: 'Goodwin, Doris Kearns',
+                title: 'Team of Rivals: The Political Genius of Abraham Lincoln',
+                publication: 'Simon & Schuster, New York, 2005',
+                description: '916 p. ; 24 cm.',
+                synopsis: 'A historical biography examining Lincoln\'s leadership.'
+            },
+            history: {
+                entryNumber: '940.53 K43',
+                author: 'Keegan, John',
+                title: 'The Second World War',
+                publication: 'Viking, New York, 1989',
+                description: '595 p. : ill., maps ; 24 cm.',
+                synopsis: 'A comprehensive military history of World War II.'
+            },
+            poetry: {
+                entryNumber: '811.54 P583',
+                author: 'Plath, Sylvia',
+                title: 'Ariel',
+                publication: 'Harper & Row, New York, 1966',
+                description: '85 p. ; 21 cm.',
+                synopsis: 'A posthumous collection of confessional poetry.'
+            },
+            reference: {
+                entryNumber: 'REF 423 W562',
+                author: 'Webster, Noah',
+                title: 'Webster\'s New International Dictionary',
+                publication: 'G. & C. Merriam Co., Springfield, 1961',
+                description: '3194 p. ; 29 cm.',
+                synopsis: 'Comprehensive dictionary of the English language.'
+            }
+        };
 
+        function setFieldValue(id, value) {
+            const field = document.getElementById(id);
+            if (field) field.value = value;
+        }
+
+        function applyPreset(type) {
             const preset = presets[type];
-            if (preset) {
-                document.getElementById('entryNumber').value = preset.entryNumber;
-                document.getElementById('author').value = preset.author;
-                document.getElementById('title').value = preset.title;
-                document.getElementById('publication').value = preset.publication;
-                document.getElementById('description').value = preset.description;
-                document.getElementById('synopsis').value = preset.synopsis;
+            if (!preset) return;
+            setFieldValue('entryNumber', preset.entryNumber);
+            setFieldValue('author', preset.author);
+            setFieldValue('title', preset.title);
+            setFieldValue('publication', preset.publication);
+            setFieldValue('description', preset.description);
+            setFieldValue('synopsis', preset.synopsis);
+            if (typeof window.generateCardForCatalog === 'function') {
+                window.generateCardForCatalog();
             }
         }
 
-        // Book Lookup using Google Books API
         async function lookupBook() {
             const searchInput = document.getElementById('bookSearch');
             const statusEl = document.getElementById('lookupStatus');
             const lookupBtn = document.getElementById('lookupBtn');
             const query = searchInput.value.trim();
-            
+
             if (!query) {
                 statusEl.textContent = 'Please enter a search term';
-                statusEl.className = 'text-xs text-red-600 mt-2';
+                statusEl.style.color = '#b42318';
                 statusEl.classList.remove('hidden');
                 return;
             }
 
-            // Show loading state
             lookupBtn.disabled = true;
             lookupBtn.textContent = 'Searching...';
             statusEl.textContent = 'Looking up book...';
-            statusEl.className = 'text-xs text-gray-600 mt-2';
+            statusEl.style.color = '#6d6256';
             statusEl.classList.remove('hidden');
 
             try {
-                // Build the search query - try title first, then ISBN if it looks like one
                 let searchQuery = query;
-                if (/^\d{10,13}$/.test(query.replace(/-/g, ''))) {
-                    // Looks like an ISBN
+                if (/^\\d{10,13}$/.test(query.replace(/-/g, ''))) {
                     searchQuery = `isbn:${query.replace(/-/g, '')}`;
                 }
-                
-                const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchQuery)}&key=AIzaSyD2eVHqhcmn19mYu12zbsd76Sjv2cC5xAE`;
-                console.log('Fetching:', url);
-                
-                const response = await fetch(url);
-                
-                if (!response.ok) {
-                    throw new Error(`API returned ${response.status}`);
-                }
-                
-                const data = await response.json();
-                console.log('API Response:', data);
 
+                const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(searchQuery)}&key=AIzaSyD2eVHqhcmn19mYu12zbsd76Sjv2cC5xAE`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`API returned ${response.status}`);
+
+                const data = await response.json();
                 if (!data.items || data.items.length === 0) {
                     statusEl.textContent = 'No book found. Try a different search or enter details manually.';
-                    statusEl.className = 'text-xs text-amber-600 mt-2';
-                    lookupBtn.disabled = false;
-                    lookupBtn.textContent = 'Search';
+                    statusEl.style.color = '#946200';
                     return;
                 }
 
-                const book = data.items[0].volumeInfo;
-                
-                // Fill in the fields with book data
+                const book = data.items[0].volumeInfo || {};
                 if (book.authors && book.authors.length > 0) {
-                    // Format author as "Last, First" if possible
                     const author = book.authors[0];
                     const nameParts = author.split(' ');
                     if (nameParts.length > 1) {
                         const lastName = nameParts[nameParts.length - 1];
                         const firstName = nameParts.slice(0, -1).join(' ');
-                        document.getElementById('author').value = `${lastName}, ${firstName}`;
+                        setFieldValue('author', `${lastName}, ${firstName}`);
                     } else {
-                        document.getElementById('author').value = author;
+                        setFieldValue('author', author);
                     }
                 }
 
-                if (book.title) {
-                    document.getElementById('title').value = book.title;
-                }
-
+                if (book.title) setFieldValue('title', book.title);
                 if (book.publisher || book.publishedDate) {
                     const pubParts = [];
                     if (book.publisher) pubParts.push(book.publisher);
-                    if (book.publishedDate) {
-                        const year = book.publishedDate.substring(0, 4);
-                        pubParts.push(year);
-                    }
-                    document.getElementById('publication').value = pubParts.join(', ');
+                    if (book.publishedDate) pubParts.push(book.publishedDate.substring(0, 4));
+                    setFieldValue('publication', pubParts.join(', '));
                 }
-
-                if (book.pageCount) {
-                    document.getElementById('description').value = `${book.pageCount} p.`;
-                }
-
+                if (book.pageCount) setFieldValue('description', `${book.pageCount} p.`);
                 if (book.description) {
-                    // Clean HTML tags and limit length to ~500 chars
-                    const cleanDesc = book.description.replace(/<[^>]*>/g, '').substring(0, 500);
-                    document.getElementById('synopsis').value = cleanDesc;
+                    setFieldValue('synopsis', shortenSynopsis(book.description));
                 }
 
-                // Generate a call number based on classification system
-                // Always generate one, even if no categories
                 const classificationSystem = document.getElementById('classificationSystem').value;
                 let callNumber = '';
-                
                 if (book.categories && book.categories.length > 0) {
                     const category = book.categories[0];
-                    
                     if (classificationSystem === 'dewey') {
-                        // Simple Dewey mapping based on category
                         if (category.match(/fiction|novel/i)) callNumber = '813';
                         else if (category.match(/biography|memoir/i)) callNumber = '920';
                         else if (category.match(/history/i)) callNumber = '900';
@@ -498,117 +372,58 @@
                         else if (category.match(/reference/i)) callNumber = 'REF';
                         else callNumber = '000';
                     } else if (classificationSystem === 'loc') {
-                        // Simple LOC mapping
                         if (category.match(/fiction|novel/i)) callNumber = 'PS';
                         else if (category.match(/biography/i)) callNumber = 'CT';
                         else if (category.match(/history/i)) callNumber = 'D';
                         else callNumber = 'A';
                     }
-                } else {
-                    // No categories - use generic fallback
-                    if (classificationSystem === 'dewey') {
-                        callNumber = '000'; // General works
-                    } else if (classificationSystem === 'loc') {
-                        callNumber = 'A'; // General works
-                    }
+                } else if (classificationSystem === 'dewey') {
+                    callNumber = '000';
+                } else if (classificationSystem === 'loc') {
+                    callNumber = 'A';
                 }
-                
-                // Add author identifier for all classification systems
+
                 if (classificationSystem !== 'custom') {
                     if (book.authors && book.authors.length > 0) {
                         const authorLast = book.authors[0].split(' ').pop();
                         callNumber += ` ${authorLast.substring(0, 3).toUpperCase()}`;
                     }
                 } else {
-                    // Custom - just use first letter of title
                     callNumber = book.title ? book.title.substring(0, 1).toUpperCase() : 'UNTITLED';
                 }
-                
-                document.getElementById('entryNumber').value = callNumber;
 
-                statusEl.textContent = `✓ Found: ${book.title}`;
-                statusEl.className = 'text-xs text-green-600 mt-2';
-                
+                setFieldValue('entryNumber', callNumber.trim());
+                if (typeof window.generateCardForCatalog === 'function') window.generateCardForCatalog();
+                statusEl.textContent = `Found: ${book.title || 'book details'}`;
+                statusEl.style.color = '#006d77';
             } catch (error) {
-                console.error('Book lookup error:', error);
                 statusEl.textContent = `Error: ${error.message}. Try entering details manually.`;
-                statusEl.className = 'text-xs text-red-600 mt-2';
+                statusEl.style.color = '#b42318';
             } finally {
                 lookupBtn.disabled = false;
                 lookupBtn.textContent = 'Search';
             }
         }
 
-        // Allow Enter key to trigger search
         document.addEventListener('DOMContentLoaded', () => {
-            const searchInput = document.getElementById('bookSearch');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter') {
-                        lookupBook();
-                    }
-                });
-            }
-        });
-
-        // Accordion functionality for mobile
-        function toggleAccordion(contentId) {
-            if (window.innerWidth >= 768) return; // Only work on mobile
-            const content = document.getElementById(contentId);
-            const button = content.previousElementSibling;
-            const icon = button.querySelector('.accordion-icon');
-            
-            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-                content.style.maxHeight = '0px';
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                content.style.maxHeight = content.scrollHeight + 'px';
-                icon.style.transform = 'rotate(180deg)';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize accordions for mobile
-            function initAccordions() {
-                if (window.innerWidth < 768) {
-                    document.querySelectorAll('.accordion-content').forEach(content => {
-                        content.style.maxHeight = '0px';
-                    });
-                } else {
-                    document.querySelectorAll('.accordion-content').forEach(content => {
-                        content.style.maxHeight = 'none';
-                    });
-                }
-            }
-
-            initAccordions();
-            window.addEventListener('resize', initAccordions);
-
-            // Update call number hint based on classification system
-            const classificationSelect = document.getElementById('classificationSystem');
-            const callNumberHint = document.getElementById('callNumberHint');
-            
-            function updateCallNumberHint() {
-                const system = classificationSelect.value;
-                if (system === 'dewey') {
-                    callNumberHint.textContent = '(numbers like 813.54)';
-                } else if (system === 'loc') {
-                    callNumberHint.textContent = '(letters+numbers like PS3545.H16)';
-                } else {
-                    callNumberHint.textContent = '(any format you like)';
-                }
-            }
-            
-            if (classificationSelect) {
-                classificationSelect.addEventListener('change', updateCallNumberHint);
-                updateCallNumberHint();
-            }
-
+            if (window.lucide) window.lucide.createIcons();
             document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const siteNav = document.getElementById('siteNav');
+            mobileMenuBtn.addEventListener('click', () => {
+                const isOpen = siteNav.classList.toggle('is-open');
+                mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+            });
+            siteNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    siteNav.classList.remove('is-open');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
 
             const canvas = document.getElementById('cardCanvas');
             const ctx = canvas.getContext('2d');
-
             const entryNumberInput = document.getElementById('entryNumber');
             const authorInput = document.getElementById('author');
             const titleInput = document.getElementById('title');
@@ -616,22 +431,19 @@
             const descriptionInput = document.getElementById('description');
             const synopsisInput = document.getElementById('synopsis');
             const showHoleCheckbox = document.getElementById('showHole');
-            const generateBtn = document.getElementById('generateBtn');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+            const lookupBtn = document.getElementById('lookupBtn');
+            const bookSearch = document.getElementById('bookSearch');
+            const classificationSelect = document.getElementById('classificationSystem');
+            const callNumberHint = document.getElementById('callNumberHint');
 
+            const DPI = 300;
             const BASE_WIDTH = 1476;
             const BASE_HEIGHT = 886;
-            const DPI = 300;
-            const FONT_STYLE_LABELS = {
-                modern: 'Modern Serif',
-                sans: 'Clean Sans',
-                vintage: 'Vintage Typewriter'
-            };
-            const STYLE_GROUP_MAP = {
-                fontStyle: 'font_style',
-                backgroundStyle: 'background_style',
-                cardSize: 'card_size'
+            const CARD_SIZES = {
+                '5x3': { wIn: 5, hIn: 3 },
+                '6x4': { wIn: 6, hIn: 4 },
+                '8x5': { wIn: 8, hIn: 5 },
+                'a7': { wIn: 4.1339, hIn: 2.9134 }
             };
             const DETAIL_FIELDS = [
                 { key: 'entry_number', input: entryNumberInput },
@@ -641,35 +453,38 @@
                 { key: 'description', input: descriptionInput },
                 { key: 'synopsis', input: synopsisInput }
             ];
-            const initialDetailValues = Object.fromEntries(
-                DETAIL_FIELDS.map(({ key, input }) => [key, input.value.trim()])
-            );
-
-            const CARD_SIZES = {
-                '5x3': { wIn: 5, hIn: 3 },
-                '6x4': { wIn: 6, hIn: 4 },
-                '8x5': { wIn: 8, hIn: 5 },
-                'a7': { wIn: 4.1339, hIn: 2.9134 }
-            };
-
+            const initialDetailValues = Object.fromEntries(DETAIL_FIELDS.map(({ key, input }) => [key, input.value.trim()]));
             let activeSize = CARD_SIZES['5x3'];
+
+            function getSelectedRadioValue(name, fallback = 'unknown') {
+                const selected = document.querySelector(`input[name="${name}"]:checked`);
+                return selected ? selected.value : fallback;
+            }
 
             function getSelectedSize() {
                 const selected = document.querySelector('input[name="cardSize"]:checked');
                 return CARD_SIZES[selected ? selected.value : '5x3'];
             }
 
-            function setCanvasSizeFromSelection() {
+            function setCanvasSizeFromSelection(options = {}) {
+                const forDownload = Boolean(options.forDownload);
                 activeSize = getSelectedSize();
-                canvas.width = Math.round(activeSize.wIn * DPI);
-                canvas.height = Math.round(activeSize.hIn * DPI);
+
+                if (forDownload) {
+                    canvas.width = Math.round(activeSize.wIn * DPI);
+                    canvas.height = Math.round(activeSize.hIn * DPI);
+                    return;
+                }
+
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                const cssWidth = Math.max(280, Math.round(canvas.parentElement.clientWidth || canvas.clientWidth || 520));
+                const cssHeight = Math.round(cssWidth * (activeSize.hIn / activeSize.wIn));
+                canvas.width = Math.round(cssWidth * dpr);
+                canvas.height = Math.round(cssHeight * dpr);
             }
 
             function sanitizeFilePart(value, fallback) {
-                const clean = (value || '')
-                    .replace(/[<>:"/\\|?*]+/g, '')
-                    .replace(/\s+/g, ' ')
-                    .trim();
+                const clean = (value || '').replace(/[<>:"/\\|?*]+/g, '').replace(/\s+/g, ' ').trim();
                 return clean || fallback;
             }
 
@@ -680,43 +495,39 @@
                 return `Card Catalog Generator - ${author} - ${titlePart}`;
             }
 
+            function shortenSynopsis(text, maxChars = 190) {
+                const cleaned = String(text || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+                if (cleaned.length <= maxChars) return cleaned;
 
-            function trackAnalyticsEvent(eventName, params = {}) {
-                if (typeof window.gtag === 'function') {
-                    window.gtag('event', eventName, params);
+                const firstSentence = cleaned.match(/^.{40,}?[.!?](?:\s|$)/);
+                if (firstSentence && firstSentence[0].length <= maxChars) {
+                    return firstSentence[0].trim();
                 }
+
+                const clipped = cleaned.slice(0, maxChars + 1);
+                const lastSpace = clipped.lastIndexOf(' ');
+                return `${clipped.slice(0, lastSpace > 80 ? lastSpace : maxChars).trim()}...`;
             }
 
-            function getSelectedRadioValue(name, fallback = 'unknown') {
-                const selected = document.querySelector(`input[name="${name}"]:checked`);
-                return selected ? selected.value : fallback;
+            function trackAnalyticsEvent(eventName, params = {}) {
+                if (typeof window.gtag === 'function') window.gtag('event', eventName, params);
             }
 
             function getAnalyticsContext() {
                 let filledDetailCount = 0;
                 let editedDetailCount = 0;
                 const detailStatus = {};
-
                 DETAIL_FIELDS.forEach(({ key, input }) => {
                     const trimmedValue = input.value.trim();
                     const filled = trimmedValue.length > 0;
                     const edited = trimmedValue !== initialDetailValues[key];
-
-                    if (filled) {
-                        filledDetailCount += 1;
-                    }
-                    if (edited) {
-                        editedDetailCount += 1;
-                    }
-
+                    if (filled) filledDetailCount += 1;
+                    if (edited) editedDetailCount += 1;
                     detailStatus[`${key}_filled`] = filled ? 'yes' : 'no';
                     detailStatus[`${key}_edited`] = edited ? 'yes' : 'no';
                 });
-
-                const selectedFont = getSelectedRadioValue('fontStyle');
                 return {
-                    font_style: selectedFont,
-                    font_style_label: FONT_STYLE_LABELS[selectedFont] || 'unknown',
+                    font_style: getSelectedRadioValue('fontStyle'),
                     background_style: getSelectedRadioValue('backgroundStyle'),
                     card_size: getSelectedRadioValue('cardSize'),
                     show_hole_punch: showHoleCheckbox.checked ? 'yes' : 'no',
@@ -726,26 +537,39 @@
                 };
             }
 
-            function wrapText(context, text, x, y, maxWidth, lineHeight) {
-                const words = text.split(' ');
+            function fitTextToWidth(context, text, maxWidth) {
+                let fitted = text;
+                while (fitted.length > 1 && context.measureText(fitted + '...').width > maxWidth) {
+                    fitted = fitted.slice(0, -1);
+                }
+                return fitted.length < text.length ? fitted.trimEnd() + '...' : text;
+            }
+
+            function wrapText(context, text, x, y, maxWidth, lineHeight, maxLines = Infinity, maxY = Infinity) {
+                const words = String(text || '').split(/\s+/).filter(Boolean);
                 let line = '';
-                let testLine;
-                let metrics;
+                let linesDrawn = 0;
+
+                function drawLine(value, isLastLine = false) {
+                    if (y > maxY || linesDrawn >= maxLines) return false;
+                    const shouldEllipsize = !isLastLine && (linesDrawn === maxLines - 1 || y + lineHeight > maxY);
+                    context.fillText(shouldEllipsize ? fitTextToWidth(context, value.trim(), maxWidth) : value.trim(), x, y);
+                    linesDrawn += 1;
+                    y += lineHeight;
+                    return linesDrawn < maxLines && y <= maxY;
+                }
 
                 for (let n = 0; n < words.length; n++) {
-                    testLine = line + words[n] + ' ';
-                    metrics = context.measureText(testLine);
-
-                    if (metrics.width > maxWidth && n > 0) {
-                        context.fillText(line, x, y);
+                    const testLine = line + words[n] + ' ';
+                    if (context.measureText(testLine).width > maxWidth && n > 0) {
+                        if (!drawLine(line, n >= words.length - 1)) return y - lineHeight;
                         line = words[n] + ' ';
-                        y += lineHeight;
                     } else {
                         line = testLine;
                     }
                 }
-                context.fillText(line, x, y);
-                return y;
+                if (line) drawLine(line, true);
+                return y - lineHeight;
             }
 
             function drawTexturedAgedPaper(context, width, height) {
@@ -782,14 +606,15 @@
                     context.lineTo(x + Math.cos(angle) * len, y + Math.sin(angle) * len);
                     context.stroke();
                 }
-}
+            }
 
-            function generateCard() {
+            function generateCard(options = {}) {
+                const forDownload = Boolean(options.forDownload);
                 const fontStyle = document.querySelector('input[name="fontStyle"]:checked').value;
                 const backgroundStyle = document.querySelector('input[name="backgroundStyle"]:checked').value;
                 const showHole = showHoleCheckbox.checked;
 
-                setCanvasSizeFromSelection();
+                setCanvasSizeFromSelection({ forDownload });
 
                 const canvasWidth = canvas.width;
                 const canvasHeight = canvas.height;
@@ -846,7 +671,7 @@
                 const lineHeight = 55 * sy;
 
                 const titleAndAuthor = `${title} / ${author.split(',')[1] || ''} ${author.split(',')[0] || ''}.`;
-                const lastY = wrapText(ctx, titleAndAuthor, bodyTextIndent, currentY, maxWidth, lineHeight);
+                const lastY = wrapText(ctx, titleAndAuthor, bodyTextIndent, currentY, maxWidth, lineHeight, Infinity, canvasHeight - (140 * sy));
                 currentY = lastY + lineHeight;
 
                 ctx.fillText(publication, bodyTextIndent, currentY);
@@ -855,7 +680,8 @@
                 currentY += lineHeight;
 
                 currentY += 25 * sy;
-                wrapText(ctx, synopsis, bodyTextIndent, currentY, maxWidth, lineHeight);
+                const synopsisBottom = canvasHeight - (showHole ? 135 * sy : 70 * sy);
+                wrapText(ctx, synopsis, bodyTextIndent, currentY, maxWidth, lineHeight, Infinity, synopsisBottom);
 
                 if (showHole) {
                     ctx.beginPath();
@@ -878,7 +704,58 @@
                 }
             }
 
+            window.generateCardForCatalog = generateCard;
+
+            function downloadPng() {
+                generateCard({ forDownload: true });
+                const link = document.createElement('a');
+                link.download = buildDownloadBaseName() + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                trackAnalyticsEvent('file_download', { extension: 'png', file_name: 'catalog_card', ...getAnalyticsContext() });
+                requestAnimationFrame(() => generateCard());
+            }
+
+            function downloadPdf() {
+                generateCard({ forDownload: true });
+                const jspdf = window.jspdf;
+                if (!jspdf || !jspdf.jsPDF) {
+                    alert('PDF library is still loading. Please try again.');
+                    generateCard();
+                    return;
+                }
+                const pdf = new jspdf.jsPDF({ orientation: 'landscape', unit: 'in', format: [activeSize.wIn, activeSize.hIn] });
+                pdf.setProperties({
+                    title: buildDownloadBaseName(),
+                    subject: 'Created by CardCatalogGenerator.com',
+                    creator: 'CardCatalogGenerator.com',
+                    author: sanitizeFilePart(authorInput.value, 'Card Catalog Generator')
+                });
+                const backgroundStyle = getSelectedRadioValue('backgroundStyle', 'white');
+                if (backgroundStyle === 'transparent') {
+                    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, activeSize.wIn, activeSize.hIn, undefined, 'FAST');
+                } else {
+                    pdf.addImage(canvas.toDataURL('image/jpeg', 0.78), 'JPEG', 0, 0, activeSize.wIn, activeSize.hIn, undefined, 'FAST');
+                }
+                pdf.save(buildDownloadBaseName() + '.pdf');
+                trackAnalyticsEvent('file_download', { extension: 'pdf', file_name: 'catalog_card', ...getAnalyticsContext() });
+                requestAnimationFrame(() => generateCard());
+            }
+
+            function updateCallNumberHint() {
+                const system = classificationSelect.value;
+                callNumberHint.textContent = system === 'dewey' ? '(numbers like 813.54)' : system === 'loc' ? '(letters like PS)' : '(any format)';
+            }
+
+            document.querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', () => applyPreset(button.dataset.preset)));
+            document.querySelectorAll('input[name="fontStyle"], input[name="backgroundStyle"], input[name="cardSize"], #showHole').forEach(control => {
+                control.addEventListener('change', () => {
+                    generateCard();
+                    trackAnalyticsEvent('style_preference', getAnalyticsContext());
+                });
+            });
             DETAIL_FIELDS.forEach(({ key, input }) => {
+                input.addEventListener('input', generateCard);
                 input.addEventListener('change', () => {
                     const trimmedValue = input.value.trim();
                     trackAnalyticsEvent('card_detail_change', {
@@ -889,80 +766,27 @@
                 });
             });
 
-            generateBtn.addEventListener('click', () => {
-                generateCard();
-                trackAnalyticsEvent('generate_card', getAnalyticsContext());
-            });
-
-            showHoleCheckbox.addEventListener('change', () => {
-                generateCard();
-                trackAnalyticsEvent('style_preference', {
-                    style_group: 'show_hole_punch',
-                    style_value: showHoleCheckbox.checked ? 'yes' : 'no'
-                });
-            });
-
-            document.querySelectorAll('input[name="fontStyle"], input[name="backgroundStyle"], input[name="cardSize"]').forEach(radio => {
-                radio.addEventListener('change', (event) => {
-                    generateCard();
-                    const styleGroup = STYLE_GROUP_MAP[event.target.name] || 'style';
-                    const styleValue = event.target.value;
-                    const payload = {
-                        style_group: styleGroup,
-                        style_value: styleValue
-                    };
-
-                    if (styleGroup === 'font_style') {
-                        payload.style_label = FONT_STYLE_LABELS[styleValue] || styleValue;
-                    }
-
-                    trackAnalyticsEvent('style_preference', payload);
-                });
-            });
-
-            downloadBtn.addEventListener('click', () => {
-                const link = document.createElement('a');
-                link.download = buildDownloadBaseName() + '.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-                trackAnalyticsEvent('file_download', {
-                    extension: 'png',
-                    file_name: 'catalog_card',
-                    ...getAnalyticsContext()
-                });
-            });
-
-            downloadPdfBtn.addEventListener('click', () => {
-                const jspdf = window.jspdf;
-                if (!jspdf || !jspdf.jsPDF) {
-                    alert('PDF library is still loading. Please try again.');
-                    return;
+            classificationSelect.addEventListener('change', updateCallNumberHint);
+            lookupBtn.addEventListener('click', lookupBook);
+            bookSearch.addEventListener('keydown', event => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    lookupBook();
                 }
+            });
+            document.querySelectorAll('[data-download="png"]').forEach(button => button.addEventListener('click', downloadPng));
+            document.querySelectorAll('[data-download="pdf"]').forEach(button => button.addEventListener('click', downloadPdf));
 
-                const pdf = new jspdf.jsPDF({
-                    orientation: 'landscape',
-                    unit: 'in',
-                    format: [activeSize.wIn, activeSize.hIn]
-                });
-
-                pdf.setProperties({
-                    title: buildDownloadBaseName(),
-                    subject: 'Created by CardCatalogGenerator.com',
-                    creator: 'CardCatalogGenerator.com',
-                    author: sanitizeFilePart(authorInput.value, 'Card Catalog Generator')
-                });
-
-                const imageData = canvas.toDataURL('image/png');
-                pdf.addImage(imageData, 'PNG', 0, 0, activeSize.wIn, activeSize.hIn);
-                pdf.save(buildDownloadBaseName() + '.pdf');
-                trackAnalyticsEvent('file_download', {
-                    extension: 'pdf',
-                    file_name: 'catalog_card',
-                    ...getAnalyticsContext()
-                });
+            document.querySelectorAll('a[href="#generator"]').forEach(link => {
+                link.addEventListener('click', () => setTimeout(generateCard, 200));
+            });
+            window.addEventListener('resize', () => {
+                window.clearTimeout(window.cardPreviewResizeTimer);
+                window.cardPreviewResizeTimer = window.setTimeout(generateCard, 120);
             });
 
-            setTimeout(generateCard, 500);
+            updateCallNumberHint();
+            generateCard();
         });
     </script>
     <script type="application/ld+json">
@@ -986,7 +810,7 @@
           "name": "What is a library catalog card?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A catalog card is a structured record of a book’s title, author, and classification used in traditional library card catalogs."
+            "text": "A catalog card is a structured record of a book's title, author, and classification used in traditional library card catalogs."
           }
         },
         {
@@ -995,14 +819,6 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Yes. You can enter any title and author to generate prop or creative project cards."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What paper size should I print on?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Standard letter or A4 works, and if your printer supports direct card stock/card sizes, you can print directly on the card. Downloads keep true dimensions, so the PNG or PDF matches the exact size you selected above."
           }
         },
         {
