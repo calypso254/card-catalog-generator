@@ -102,6 +102,7 @@
                         </div>
                         <div class="field-full">
                             <label for="synopsis">Synopsis / Notes <span class="control-label" style="display:inline;font-weight:400;color:var(--muted);">(optional)</span></label>
+                            <p id="synopsisNote" class="lookup-note hidden"></p>
                             <textarea id="synopsis" rows="5">A classic novel following Elizabeth Bennet as she navigates family expectations, first impressions, and her changing opinion of Mr. Darcy.</textarea>
                         </div>
                     </div>
@@ -292,6 +293,30 @@
             if (field) field.value = value;
         }
 
+        function shortenSynopsis(text, maxChars = 190) {
+            const cleaned = String(text || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+            const firstSentence = cleaned.match(/^.{20,}?[.!?](?:\s|$)/);
+            if (firstSentence && firstSentence[0].length < cleaned.length && firstSentence[0].length <= maxChars) {
+                return {
+                    text: `${firstSentence[0].trim()} ...`,
+                    shortened: true
+                };
+            }
+            if (cleaned.length <= maxChars) {
+                return {
+                    text: cleaned,
+                    shortened: false
+                };
+            }
+
+            const clipped = cleaned.slice(0, maxChars + 1);
+            const lastSpace = clipped.lastIndexOf(' ');
+            return {
+                text: `${clipped.slice(0, lastSpace > 80 ? lastSpace : maxChars).trim()} ...`,
+                shortened: true
+            };
+        }
+
         function applyPreset(type) {
             const preset = presets[type];
             if (!preset) return;
@@ -301,6 +326,11 @@
             setFieldValue('publication', preset.publication);
             setFieldValue('description', preset.description);
             setFieldValue('synopsis', preset.synopsis);
+            const synopsisNote = document.getElementById('synopsisNote');
+            if (synopsisNote) {
+                synopsisNote.textContent = '';
+                synopsisNote.classList.add('hidden');
+            }
             if (typeof window.generateCardForCatalog === 'function') {
                 window.generateCardForCatalog();
             }
@@ -364,7 +394,15 @@
                 }
                 if (book.pageCount) setFieldValue('description', `${book.pageCount} p.`);
                 if (book.description) {
-                    setFieldValue('synopsis', shortenSynopsis(book.description));
+                    const synopsis = shortenSynopsis(book.description);
+                    setFieldValue('synopsis', synopsis.text);
+                    const synopsisNote = document.getElementById('synopsisNote');
+                    if (synopsisNote) {
+                        synopsisNote.textContent = synopsis.shortened
+                            ? 'Google Books description shortened for card layout.'
+                            : 'Google Books description auto-filled.';
+                        synopsisNote.classList.remove('hidden');
+                    }
                 }
 
                 const classificationSystem = document.getElementById('classificationSystem').value;
@@ -501,20 +539,6 @@
                 const titleRaw = sanitizeFilePart(titleInput.value, 'Untitled');
                 const titlePart = titleRaw.substring(0, 20).trim() || 'Untitled';
                 return `Card Catalog Generator - ${author} - ${titlePart}`;
-            }
-
-            function shortenSynopsis(text, maxChars = 190) {
-                const cleaned = String(text || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-                if (cleaned.length <= maxChars) return cleaned;
-
-                const firstSentence = cleaned.match(/^.{40,}?[.!?](?:\s|$)/);
-                if (firstSentence && firstSentence[0].length <= maxChars) {
-                    return firstSentence[0].trim();
-                }
-
-                const clipped = cleaned.slice(0, maxChars + 1);
-                const lastSpace = clipped.lastIndexOf(' ');
-                return `${clipped.slice(0, lastSpace > 80 ? lastSpace : maxChars).trim()}...`;
             }
 
             function trackAnalyticsEvent(eventName, params = {}) {
