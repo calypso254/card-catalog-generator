@@ -35,7 +35,7 @@ body {
     background-image:
         radial-gradient(circle at 50% -10%, rgba(255, 255, 255, 0.78), transparent 42rem),
         linear-gradient(rgba(255, 248, 235, 0.76), rgba(245, 237, 223, 0.9)),
-        url('seamless paper texture.jpg');
+        url('assets/seamless-paper-texture.jpg');
     background-repeat: no-repeat, no-repeat, repeat;
 }
 
@@ -824,7 +824,7 @@ details p {
     body {
         background-image:
             linear-gradient(rgba(255, 248, 235, 0.72), rgba(245, 237, 223, 0.92)),
-            url('seamless paper texture.jpg');
+            url('assets/seamless-paper-texture.jpg');
     }
 
     .site-shell,
