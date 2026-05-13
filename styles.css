@@ -227,7 +227,7 @@ button.button:hover {
     border: 1px solid rgba(83, 59, 32, 0.35);
     background: #442916;
     box-shadow: var(--soft-shadow);
-    aspect-ratio: 16 / 8.1;
+    aspect-ratio: 1005 / 718;
 }
 
 .hero-media img {
@@ -999,7 +999,7 @@ details p {
     .hero-media {
         margin: 1.25rem auto 0;
         width: min(100%, 340px);
-        aspect-ratio: 1.65 / 1;
+        aspect-ratio: 1005 / 718;
     }
 
     .generator-grid {
